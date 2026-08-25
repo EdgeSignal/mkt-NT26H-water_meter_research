@@ -184,6 +184,130 @@
             font-weight: 700;
         }
 
+        /* ===== 水表需求页样式 ===== */
+        .wm-demand-slide {
+            justify-content: flex-start;
+            padding-top: 45px;
+        }
+        .wm-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .wm-stat {
+            text-align: center;
+            padding: 12px 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .wm-stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(52, 152, 219, 0.25);
+        }
+        .wm-stat:hover {
+            transform: translateY(-6px);
+        }
+        .wm-stat-num {
+            font-size: 48px;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .wm-stat-label {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .wm-stat-note {
+            font-size: 14px;
+            color: #95a5a6;
+        }
+        .wm-section-head {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #3498db;
+            margin: 14px 0 6px;
+        }
+        .wm-section-sub {
+            text-align: center;
+            font-size: 13px;
+            color: #95a5a6;
+            margin-bottom: 14px;
+        }
+        .wm-forms {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .wm-form {
+            text-align: center;
+            padding: 12px 18px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .wm-form:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(52, 152, 219, 0.18);
+        }
+        .wm-form:hover {
+            transform: translateY(-4px);
+        }
+        .wm-form:hover .wm-icon svg {
+            filter: brightness(1.15);
+        }
+        .wm-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px;
+            transition: all 0.3s ease;
+        }
+        .wm-form-title {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .wm-list {
+            list-style: none;
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.6;
+            margin-left: 0;
+        }
+        .wm-growth {
+            background: #f0f7fc;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 14px 40px;
+            text-align: center;
+            margin-bottom: 18px;
+            font-size: 18px;
+        }
+        .wm-conclusion {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 16px;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -453,11 +577,152 @@
         </section>
 
 
+        <!-- Slide 1.1: 全国水表需求及智能化形态 -->
+        <section class="slide wm-demand-slide">
+            <h2 style="font-size: 34px; margin-bottom: 0; padding-bottom: 0; color: #2c3e50;">全国水表年需求约4000万只，智能表占比约60%～70%</h2>
+            <div style="width: 160px; height: 5px; background: #3498db; margin: 12px 0 24px;"></div>
+
+            <!-- 三项核心数据 -->
+            <div class="wm-stats">
+                <div class="wm-stat">
+                    <div class="wm-stat-num">约3亿只</div>
+                    <div class="wm-stat-label">全国在用水表存量</div>
+                    <div class="wm-stat-note">行业资料估算</div>
+                </div>
+                <div class="wm-stat">
+                    <div class="wm-stat-num">约4000万只/年</div>
+                    <div class="wm-stat-label">全国水表年需求</div>
+                    <div class="wm-stat-note">客户访谈估算</div>
+                </div>
+                <div class="wm-stat">
+                    <div class="wm-stat-num">约60%～70%</div>
+                    <div class="wm-stat-label">智能表占年度需求比例</div>
+                    <div class="wm-stat-note">客户访谈判断</div>
+                </div>
+            </div>
+
+            <!-- 章节标题 -->
+            <div class="wm-section-head">智能水表常见形态</div>
+            <div class="wm-section-sub">不同计量、读表与通信方式可以组合使用</div>
+
+            <!-- 三类形态 -->
+            <div class="wm-forms">
+                <div class="wm-form">
+                    <div class="wm-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="18" y="30" width="64" height="44" rx="6" fill="none" stroke="#3498db" stroke-width="2.5"/>
+                            <circle cx="50" cy="52" r="16" fill="none" stroke="#3498db" stroke-width="2.5"/>
+                            <line x1="50" y1="52" x2="50" y2="40" stroke="#3498db" stroke-width="2.5"/>
+                            <line x1="50" y1="52" x2="60" y2="56" stroke="#3498db" stroke-width="2.5"/>
+                            <rect x="8" y="44" width="10" height="16" rx="2" fill="none" stroke="#3498db" stroke-width="2.5"/>
+                            <rect x="82" y="44" width="10" height="16" rx="2" fill="none" stroke="#3498db" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="wm-form-title" style="color:#3498db;">基础智能化</div>
+                    <ul class="wm-list">
+                        <li>IC卡表</li>
+                        <li>有线远传表</li>
+                        <li>LoRa水表</li>
+                    </ul>
+                </div>
+                <div class="wm-form">
+                    <div class="wm-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="38" width="60" height="40" rx="6" fill="none" stroke="#9b59b6" stroke-width="2.5"/>
+                            <circle cx="50" cy="58" r="14" fill="none" stroke="#9b59b6" stroke-width="2.5"/>
+                            <path d="M 50 30 C 42 30 36 24 36 16 M 50 22 C 46 22 43 19 43 15 M 50 38 L 50 30" stroke="#9b59b6" stroke-width="2.5" fill="none"/>
+                            <circle cx="50" cy="12" r="2.5" fill="#9b59b6"/>
+                            <rect x="10" y="52" width="10" height="14" rx="2" fill="none" stroke="#9b59b6" stroke-width="2.5"/>
+                            <rect x="80" y="52" width="10" height="14" rx="2" fill="none" stroke="#9b59b6" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="wm-form-title" style="color:#9b59b6;">蜂窝远传</div>
+                    <ul class="wm-list">
+                        <li>NB-IoT水表</li>
+                        <li>Cat.1水表</li>
+                    </ul>
+                </div>
+                <div class="wm-form">
+                    <div class="wm-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="32" width="60" height="42" rx="6" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+                            <circle cx="40" cy="48" r="5" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+                            <circle cx="60" cy="48" r="5" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+                            <path d="M 38 62 L 46 62 M 54 62 L 62 62" stroke="#e67e22" stroke-width="2.5" stroke-linecap="round"/>
+                            <rect x="10" y="46" width="10" height="14" rx="2" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+                            <rect x="80" y="46" width="10" height="14" rx="2" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="wm-form-title" style="color:#e67e22;">计量与改造升级</div>
+                    <ul class="wm-list">
+                        <li>超声波水表</li>
+                        <li>摄像直读水表</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 核心结论（替换原增长动力位置） -->
+            <div class="wm-conclusion">水表市场进入存量驱动阶段，主要增量来自到期轮换与智能化替换。</div>
+
+            <!-- 底部备注 -->
+            <div style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 14px; color: #95a5a6; text-align: center; width: 90%;">
+                注：3亿只为行业资料估算；4000万只/年、60%～70%为客户访谈口径。
+            </div>
+        </section>
+
+
+        <!-- Slide 1.2: 客户故事 - 新郑水表项目 -->
+        <section class="slide">
+            <h2 style="font-size: 36px; margin-bottom: 8px; color: #2c3e50;">1～2元决定采购评估，6～8年决定售后成本</h2>
+            <div style="font-size: 16px; color: #95a5a6; margin-bottom: 30px;">客户故事｜新郑水表项目</div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px;">
+                <!-- 第一批 NB-IoT -->
+                <div style="background: #f8f9fa; border: 1px solid #e0e6ed; border-left: 4px solid #3498db; border-radius: 8px; padding: 28px;">
+                    <h3 style="font-size: 26px; color: #3498db; margin-bottom: 20px; font-weight: 600;">第一批：NB-IoT方案</h3>
+                    <ul style="list-style: none; font-size: 18px; line-height: 1.8; color: #34495e; margin-left: 0;">
+                        <li style="margin-bottom: 12px;">• 项目规模：大几万只</li>
+                        <li style="margin-bottom: 12px;">• 部分安装区域网络覆盖较弱</li>
+                        <li style="margin-bottom: 12px;">• 水表上报表现不佳</li>
+                        <li style="margin-bottom: 12px;">• 现场处理与售后压力增加</li>
+                    </ul>
+                </div>
+
+                <!-- 第二批 Cat.1 -->
+                <div style="background: #f8f9fa; border: 1px solid #e0e6ed; border-left: 4px solid #9b59b6; border-radius: 8px; padding: 28px;">
+                    <h3 style="font-size: 26px; color: #9b59b6; margin-bottom: 20px; font-weight: 600;">第二批：4G/Cat.1方案</h3>
+                    <ul style="list-style: none; font-size: 18px; line-height: 1.8; color: #34495e; margin-left: 0;">
+                        <li style="margin-bottom: 12px;">• 项目规模：约8000只</li>
+                        <li style="margin-bottom: 12px;">• 日报率接近100%</li>
+                        <li style="margin-bottom: 12px;">• 现场处理工作明显减少</li>
+                        <li style="margin-bottom: 12px;">• 客户更关注长期稳定性，而不只是模组价格</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 核心结论标题 -->
+            <div style="text-align: center; font-size: 20px; color: #3498db; font-weight: 700; margin-bottom: 14px;">页面核心结论</div>
+
+            <!-- 核心结论内容 -->
+            <div style="background: #f0f7fc; border-left: 4px solid #3498db; padding: 20px 28px; margin-bottom: 24px; border-radius: 0 8px 8px 0;">
+                <p style="font-size: 22px; color: #3498db; font-weight: 600; margin-bottom: 14px;">低价可以赢得项目，但稳定上报才能守住项目。</p>
+                <p style="font-size: 17px; color: #34495e; line-height: 1.6;">
+                    客户可能在意每只模组1～2元的差价，但水表需要运行6～8年。一旦出现批量不上报，现场排查、差旅、换表和客户投诉产生的成本，可能远高于最初节省的BOM成本。
+                </p>
+            </div>
+
+            <!-- 底部脚注 -->
+            <div style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 13px; color: #95a5a6; text-align: center; width: 92%;">
+                数据来源：客户访谈及CRM项目记录；4G日报率为"接近100%"的项目经验口径，具体运营商、统计周期及安装环境待进一步核实。
+            </div>
+        </section>
+
+
         <!-- Slide 2.5: 中国智能水表产业地图 -->
         <section class="slide">
             <!-- 页面头部 -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h2 style="margin: 0; font-size: 26px;">海思Cat.1重点水表客户分布</h2>
+                <h2 style="margin: 0; font-size: 26px;">水表企业区域分布地图</h2>
                 <div style="display: flex; gap: 20px; font-size: 15px; color: #7f8c8d;">
                     <span><strong style="color: #3498db; font-size: 20px;">6</strong>个集聚区</span>
                     <span><strong style="color: #3498db; font-size: 20px;">11</strong>个重点省份</span>

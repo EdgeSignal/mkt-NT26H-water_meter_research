@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全国水表需求及智能化形态</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #031329 0%, #071a35 50%, #10133b 100%);
+            color: #f4f7ff;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 4vh 5vw;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0, 233, 255, 0.03) 49px, rgba(0, 233, 255, 0.03) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(0, 233, 255, 0.03) 49px, rgba(0, 233, 255, 0.03) 50px);
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .page-title {
+            font-size: clamp(38px, 3vw, 52px);
+            font-weight: 700;
+            color: #00e9ff;
+            margin-bottom: 1.2vh;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 20px rgba(0, 233, 255, 0.4);
+        }
+
+        .title-decoration {
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(90deg, #00e9ff 0%, #a66cff 100%);
+            box-shadow: 0 0 12px rgba(0, 233, 255, 0.5);
+            margin-bottom: 3vh;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-bottom: 4vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2vh 2vw;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(0, 233, 255, 0.2);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-6px);
+        }
+
+        .stat-item:hover .stat-number {
+            text-shadow: 0 0 30px rgba(0, 233, 255, 0.8);
+        }
+
+        .stat-number {
+            font-size: clamp(48px, 4vw, 70px);
+            font-weight: 700;
+            color: #00e9ff;
+            margin-bottom: 1.5vh;
+            text-shadow: 0 0 20px rgba(0, 233, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .stat-label {
+            font-size: clamp(20px, 1.6vw, 28px);
+            color: #f4f7ff;
+            margin-bottom: 1vh;
+            font-weight: 600;
+        }
+
+        .stat-note {
+            font-size: clamp(14px, 1vw, 18px);
+            color: #9ca9bd;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(30px, 2.2vw, 42px);
+            font-weight: 700;
+            color: #00e9ff;
+            margin: 3vh 0 1.5vh;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 80px;
+            height: 1px;
+            background: rgba(0, 233, 255, 0.3);
+        }
+
+        .section-title::before {
+            right: calc(50% + 280px);
+        }
+
+        .section-title::after {
+            left: calc(50% + 280px);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(14px, 1.1vw, 17px);
+            color: #9ca9bd;
+            margin-bottom: 3vh;
+        }
+
+        .forms-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-bottom: 2.5vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-item {
+            text-align: center;
+            padding: 2vh 1.5vw;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .form-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: rgba(0, 233, 255, 0.15);
+        }
+
+        .form-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .form-item:hover .form-icon svg {
+            filter: brightness(1.3);
+        }
+
+        .form-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2vh;
+            transition: all 0.3s ease;
+        }
+
+        .form-title {
+            font-size: clamp(20px, 1.5vw, 26px);
+            font-weight: 600;
+            margin-bottom: 1.5vh;
+        }
+
+        .form-item:nth-child(1) .form-title {
+            color: #00e9ff;
+        }
+
+        .form-item:nth-child(2) .form-title {
+            color: #a66cff;
+        }
+
+        .form-item:nth-child(3) .form-title {
+            color: #ff9d18;
+        }
+
+        .form-list {
+            list-style: none;
+            font-size: clamp(15px, 1.2vw, 20px);
+            color: #f4f7ff;
+            line-height: 1.8;
+        }
+
+        .growth-bar {
+            background: rgba(7, 26, 53, 0.7);
+            border: 1px solid;
+            border-image: linear-gradient(90deg, #00e9ff 0%, #a66cff 100%) 1;
+            padding: 1.8vh 3vw;
+            text-align: center;
+            margin-bottom: 2.5vh;
+            position: relative;
+            z-index: 1;
+            font-size: clamp(16px, 1.3vw, 22px);
+        }
+
+        .growth-label {
+            color: #00e9ff;
+            font-weight: 700;
+        }
+
+        .growth-items {
+            color: #f4f7ff;
+        }
+
+        .conclusion {
+            text-align: center;
+            font-size: clamp(22px, 1.8vw, 32px);
+            font-weight: 600;
+            color: #00e9ff;
+            margin-bottom: 2vh;
+            text-shadow: 0 0 15px rgba(0, 233, 255, 0.3);
+        }
+
+        .footer-note {
+            position: absolute;
+            bottom: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(12px, 0.9vw, 15px);
+            color: #9ca9bd;
+            text-align: center;
+            width: 90%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body > * {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-title">全国水表年需求约4000万只，智能表占比约60%～70%</div>
+    <div class="title-decoration"></div>
+
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number">约3亿只</div>
+            <div class="stat-label">全国在用水表存量</div>
+            <div class="stat-note">行业资料估算</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">约4000万只/年</div>
+            <div class="stat-label">全国水表年需求</div>
+            <div class="stat-note">客户访谈估算</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">约60%～70%</div>
+            <div class="stat-label">智能表占年度需求比例</div>
+            <div class="stat-note">客户访谈判断</div>
+        </div>
+    </div>
+
+    <div class="section-title">智能水表常见形态</div>
+    <div class="section-subtitle">不同计量、读表与通信方式可以组合使用</div>
+
+    <div class="forms-container">
+        <div class="form-item">
+            <div class="form-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="20" width="70" height="60" rx="5" fill="none" stroke="#00e9ff" stroke-width="2"/>
+                    <circle cx="50" cy="45" r="18" fill="none" stroke="#00e9ff" stroke-width="2"/>
+                    <line x1="50" y1="45" x2="50" y2="32" stroke="#00e9ff" stroke-width="2"/>
+                    <line x1="50" y1="45" x2="62" y2="50" stroke="#00e9ff" stroke-width="2"/>
+                    <rect x="35" y="68" width="30" height="8" rx="2" fill="#00e9ff" opacity="0.6"/>
+                    <text x="50" y="95" font-size="10" fill="#00e9ff" text-anchor="middle" font-family="Arial">METER</text>
+                </svg>
+            </div>
+            <div class="form-title">基础智能化</div>
+            <ul class="form-list">
+                <li>IC卡表</li>
+                <li>有线远传表</li>
+                <li>LoRa水表</li>
+            </ul>
+        </div>
+
+        <div class="form-item">
+            <div class="form-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="25" width="70" height="55" rx="5" fill="none" stroke="#a66cff" stroke-width="2"/>
+                    <circle cx="50" cy="48" r="16" fill="none" stroke="#a66cff" stroke-width="2"/>
+                    <path d="M 50 30 Q 35 20, 30 10 M 50 30 Q 50 15, 50 5 M 50 30 Q 65 20, 70 10" stroke="#a66cff" stroke-width="2" fill="none"/>
+                    <rect x="35" y="70" width="30" height="6" rx="1" fill="#a66cff" opacity="0.6"/>
+                    <circle cx="30" cy="15" r="2" fill="#a66cff"/>
+                    <circle cx="50" cy="8" r="2" fill="#a66cff"/>
+                    <circle cx="70" cy="15" r="2" fill="#a66cff"/>
+                </svg>
+            </div>
+            <div class="form-title">蜂窝远传</div>
+            <ul class="form-list">
+                <li>NB-IoT水表</li>
+                <li>Cat.1水表</li>
+            </ul>
+        </div>
+
+        <div class="form-item">
+            <div class="form-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="22" width="70" height="56" rx="5" fill="none" stroke="#ff9d18" stroke-width="2"/>
+                    <circle cx="50" cy="45" r="15" fill="none" stroke="#ff9d18" stroke-width="2"/>
+                    <path d="M 40 45 L 47 52 L 62 37" stroke="#ff9d18" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <rect x="30" y="68" width="15" height="8" rx="2" fill="#ff9d18" opacity="0.4"/>
+                    <rect x="55" y="68" width="15" height="8" rx="2" fill="#ff9d18" opacity="0.4"/>
+                    <circle cx="75" cy="30" r="5" fill="none" stroke="#ff9d18" stroke-width="1.5"/>
+                    <circle cx="75" cy="30" r="2" fill="#ff9d18"/>
+                </svg>
+            </div>
+            <div class="form-title">计量与改造升级</div>
+            <ul class="form-list">
+                <li>超声波水表</li>
+                <li>摄像直读水表</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="growth-bar">
+        <span class="growth-label">增长动力：</span>
+        <span class="growth-items">机械表替换｜到期轮换｜政策及补贴支持｜远程运营</span>
+    </div>
+
+    <div class="conclusion">
+        水表市场进入存量驱动阶段，主要增量来自到期轮换与智能化替换。
+    </div>
+
+    <div class="footer-note">
+        注：3亿只为行业资料估算；4000万只/年、60%～70%为客户访谈口径。
+    </div>
+</body>
+</html>
