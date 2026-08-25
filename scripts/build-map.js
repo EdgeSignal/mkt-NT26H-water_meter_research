@@ -2,10 +2,9 @@ const fs = require('fs');
 
 // 读取资源
 const echarts = fs.readFileSync('map/echarts-master/dist/echarts.min.js', 'utf8');
-// 使用纯净的GeoJSON（已验证可被JSON.parse）
 const geoJson = fs.readFileSync('archive/extracted_resources/china-geo-clean.json', 'utf8');
 
-// 省份数据（根据用户提供的最新名单更新 - 12省52家企业）
+// 省份数据（根据用户提供的最新名单更新 - 11省52家企业）
 const provinceData = {
   '山东': {
     color: '#3a6ff7',
@@ -75,7 +74,7 @@ const provinceData = {
   }
 };
 
-// 生成地图数据（仅11个省份）
+// 生成地图数据（11个省份）
 const mapData = Object.keys(provinceData).map(name => ({
   name: name,
   itemStyle: { areaColor: provinceData[name].color }
@@ -87,7 +86,7 @@ const html = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国智能水表产业地图（测试版）</title>
+    <title>海思Cat.1重点水表客户分布（测试版）</title>
     <style>
         * {
             margin: 0;
@@ -105,114 +104,170 @@ const html = `<!DOCTYPE html>
         }
         .container {
             width: 100%;
-            max-width: 1600px;
+            max-width: 1680px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
+            padding: 40px;
         }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 40px;
-            text-align: center;
-        }
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-        .content {
+        .page-header {
             display: flex;
-            min-height: 600px;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 8px;
         }
-        .map-container {
-            flex: 1;
-            min-height: 600px;
-            padding: 20px;
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+        .kpi-group {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding-top: 4px;
+        }
+        .kpi-item {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .kpi-sep {
+            color: #ccc;
+        }
+        .page-subtitle {
+            margin: 8px 0 24px;
+            color: #888;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .map-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 24px;
+            height: 620px;
+        }
+        .map-panel {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            border: 1px solid #e0e6ed;
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
         }
         #map {
             width: 100%;
             height: 100%;
-            min-height: 600px;
         }
-        .panel {
-            width: 400px;
-            padding: 30px;
-            background: #f8f9fa;
-            overflow-y: auto;
-            max-height: 600px;
+        .detail-panel {
+            height: 100%;
+            background: #ffffff;
+            border: 1px solid #e0e6ed;
+            border-radius: 12px;
+            padding: 26px 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .province-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         .level-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #3498db;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            margin-bottom: 15px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
         .summary {
-            font-size: 15px;
-            line-height: 1.8;
+            font-size: 13px;
+            line-height: 1.7;
             color: #666;
-            margin-bottom: 20px;
-            border-left: 3px solid #667eea;
-            padding-left: 15px;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e0e6ed;
         }
         .company-title {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: bold;
             color: #333;
-            margin: 20px 0 15px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 12px;
         }
-        .company {
-            background: white;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 15px;
-            color: #333;
+        .company-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
         }
-        .company:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        .company-item {
+            padding: 9px 11px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #555;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background 0.2s;
         }
-        @media (max-width: 1024px) {
-            .content {
-                flex-direction: column;
+        .company-item:hover {
+            background: #e9ecef;
+        }
+        .footer-note {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e6ed;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        @media (max-width: 1400px) {
+            .map-layout {
+                grid-template-columns: minmax(0, 1fr) 320px;
+                gap: 20px;
             }
-            .panel {
-                width: 100%;
-                max-height: none;
+            .detail-panel {
+                padding: 20px 18px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>中国智能水表产业地图</h1>
-            <p>TOP 12 省份 · 52家代表企业 · 智能水表产业全景</p>
+        <div class="page-header">
+            <h1 class="page-title">海思Cat.1重点水表客户分布</h1>
+            <div class="kpi-group">
+                <span class="kpi-item">6个集聚区</span>
+                <span class="kpi-sep">｜</span>
+                <span class="kpi-item">11个重点省份</span>
+                <span class="kpi-sep">｜</span>
+                <span class="kpi-item">52家目标企业</span>
+            </div>
         </div>
-        <div class="content">
-            <div class="map-container">
+        <div class="page-subtitle">
+            聚焦水表整表厂、方案商及智慧水务企业，识别海思Cat.1优先推广区域。
+        </div>
+        <div class="map-layout">
+            <div class="map-panel">
                 <div id="map"></div>
             </div>
-            <div class="panel" id="panel"></div>
+            <div class="detail-panel" id="panel">
+                <div class="province-name">省份详情</div>
+                <p style="color: #999; font-size: 14px; margin-top: 8px;">点击地图上的重点省份查看详情</p>
+            </div>
+        </div>
+        <div class="footer-note">
+            注：本页面产业集聚区为基于CRM客户记录与公开企业资料形成的调研分区，不代表国家或地方政府认定的官方产业集群。
         </div>
     </div>
 
@@ -255,7 +310,9 @@ const html = `<!DOCTYPE html>
                 series: [{
                     type: 'map',
                     map: 'china',
-                    roam: true,
+                    roam: false,
+                    layoutCenter: ['50%', '51%'],
+                    layoutSize: '115%',
                     data: mapData,
                     label: {
                         show: false,
@@ -271,7 +328,7 @@ const html = `<!DOCTYPE html>
                         label: {
                             show: true,
                             color: '#fff',
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: 'bold'
                         },
                         itemStyle: {
@@ -284,7 +341,7 @@ const html = `<!DOCTYPE html>
                         label: {
                             show: true,
                             color: '#fff',
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: 'bold'
                         },
                         itemStyle: {
@@ -306,7 +363,9 @@ const html = `<!DOCTYPE html>
                     '<span class="level-badge">' + info.level + '</span>' +
                     '<div class="summary">' + info.summary + '</div>' +
                     '<div class="company-title">代表企业 (' + info.companies.length + ')</div>' +
-                    info.companies.map(c => '<div class="company">' + c + '</div>').join('');
+                    '<div class="company-list">' +
+                    info.companies.map(c => '<div class="company-item">' + c + '</div>').join('') +
+                    '</div>';
             }
 
             chart.on('click', (params) => {
@@ -327,6 +386,6 @@ const html = `<!DOCTYPE html>
 // 输出到 archive/temp_html/
 fs.writeFileSync('archive/temp_html/test-map.html', html, 'utf8');
 
-console.log('✓ test-map.html 已更新（最新企业名单）');
-console.log('✓ 12省份 · 52家企业');
+console.log('✓ test-map.html 已更新（新排版：顶部一行+72%地图+28%详情+两列企业列表）');
+console.log('✓ 11省份 · 52家企业');
 console.log('✓ 文件位置: archive/temp_html/test-map.html');

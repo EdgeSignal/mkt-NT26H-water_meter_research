@@ -78,15 +78,35 @@ const provinceData = {
 const mapSection = `
         <!-- Slide 2.5: 中国智能水表产业地图 -->
         <section class="slide">
-            <h2 style="margin-bottom: 30px;">中国智能水表产业地图</h2>
-            <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 25px; height: calc(100% - 100px);">
-                <div style="position: relative; background: #f8f9fa; border: 1px solid #e0e6ed; border-radius: 12px; padding: 15px;">
+            <!-- 页面头部 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 26px;">海思Cat.1重点水表客户分布</h2>
+                <div style="display: flex; gap: 20px; font-size: 15px; color: #7f8c8d;">
+                    <span><strong style="color: #3498db; font-size: 20px;">6</strong>个集聚区</span>
+                    <span><strong style="color: #3498db; font-size: 20px;">11</strong>个重点省份</span>
+                    <span><strong style="color: #3498db; font-size: 20px;">52</strong>家目标企业</span>
+                </div>
+            </div>
+
+            <!-- 副标题 -->
+            <p style="margin: 0 0 16px; font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                聚焦水表整表厂、方案商及智慧水务企业，识别海思Cat.1优先推广区域。
+            </p>
+
+            <!-- 地图与详情面板 -->
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; height: 620px;">
+                <div style="background: #f8f9fa; border: 1px solid #e0e6ed; border-radius: 12px; padding: 15px;">
                     <div id="mapFlat" style="width: 100%; height: 100%;"></div>
                 </div>
-                <div id="panelFlat" style="background: #ffffff; border: 1px solid #e0e6ed; border-radius: 12px; padding: 25px; overflow-y: auto; color: #2c3e50;">
+                <div id="panelFlat" style="background: #ffffff; border: 1px solid #e0e6ed; border-radius: 12px; padding: 20px; overflow: hidden; color: #2c3e50;">
                     <h3 style="color: #3498db; margin-bottom: 15px; font-size: 22px;">省份详情</h3>
                     <p style="color: #95a5a6; font-size: 16px;">点击地图上的重点省份查看详情</p>
                 </div>
+            </div>
+
+            <!-- 底部说明 -->
+            <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #95a5a6; text-align: center; width: 90%;">
+                注：本页面产业集聚区为基于CRM客户记录与公开企业资料形成的调研分区，不代表国家或地方政府认定的官方产业集群。
             </div>
         </section>
 `;
@@ -95,69 +115,57 @@ const mapSection = `
 const mapCSS = `
         /* 地图面板样式 - 简约扁平风格 */
         #panelFlat .province-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         #panelFlat .level-badge {
             display: inline-block;
-            background: #3498db;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: #fff;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 15px;
             font-size: 11px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         #panelFlat .summary {
             color: #7f8c8d;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            font-size: 13px;
         }
         #panelFlat .company-title {
             color: #3498db;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 18px 0 12px;
+            margin: 14px 0 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        #panelFlat .company {
+        #panelFlat .company-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+        }
+        #panelFlat .company-item {
             background: #f8f9fa;
             border: 1px solid #e0e6ed;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-        #panelFlat .company:hover {
-            border-color: #3498db;
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
-        }
-        #panelFlat .company-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        #panelFlat .company-city {
-            display: none;
-        }
-        #panelFlat .tags {
+            border-radius: 6px;
+            padding: 0 10px;
+            height: 42px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            align-items: center;
+            font-size: 13px;
+            color: #34495e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: border-color 0.25s;
         }
-        #panelFlat .tag {
-            background: #e8f4f8;
-            color: #3498db;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 10px;
-            border: 1px solid #d0e8f2;
+        #panelFlat .company-item:hover {
+            border-color: #3498db;
         }
 `;
 
@@ -204,6 +212,8 @@ const mapJS = `<script>
                     map: 'china',
                     roam: false,
                     selectedMode: 'single',
+                    layoutCenter: ['50%', '51%'],
+                    layoutSize: '115%',
                     data: mapData,
                     itemStyle: {
                         areaColor: '#ecf0f1',
@@ -254,9 +264,9 @@ const mapJS = `<script>
                     '<span class=\"level-badge\">' + info.level + '</span>' +
                     '<div class=\"summary\">' + info.summary + '</div>' +
                     '<div class=\"company-title\">代表企业 (' + info.companies.length + ')</div>' +
-                    info.companies.map(c =>
-                        '<div class=\"company\">' + c + '</div>'
-                    ).join('');
+                    '<div class=\"company-list\">' +
+                    info.companies.map(c => '<div class=\"company-item\">' + c + '</div>').join('') +
+                    '</div>';
             }
 
             chart.on('click', (params) => {

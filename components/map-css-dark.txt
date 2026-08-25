@@ -1,69 +1,57 @@
 
         /* 地图面板样式 - 深色科技风格 */
         #panelDark .province-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #00ffff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         #panelDark .level-badge {
             display: inline-block;
             background: linear-gradient(135deg, #00ffff, #00d4ff);
             color: #0a0e1a;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 15px;
             font-size: 11px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
         #panelDark .summary {
             color: #b0c2d4;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            font-size: 13px;
         }
         #panelDark .company-title {
             color: #00ffff;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 18px 0 12px;
+            margin: 14px 0 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        #panelDark .company {
+        #panelDark .company-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+        }
+        #panelDark .company-item {
             background: rgba(5, 20, 37, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-        #panelDark .company:hover {
-            border-color: rgba(0, 255, 255, 0.5);
-            transform: translateX(5px);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        }
-        #panelDark .company-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        #panelDark .company-city {
-            display: none;
-        }
-        #panelDark .tags {
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 0 10px;
+            height: 42px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            align-items: center;
+            font-size: 13px;
+            color: #dfeaf5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: border-color 0.25s;
         }
-        #panelDark .tag {
-            background: rgba(0, 255, 255, 0.15);
-            color: #00d4ff;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 10px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+        #panelDark .company-item:hover {
+            border-color: rgba(0, 255, 255, 0.45);
         }

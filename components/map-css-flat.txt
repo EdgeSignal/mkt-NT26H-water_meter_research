@@ -1,67 +1,55 @@
 
         /* 地图面板样式 - 简约扁平风格 */
         #panelFlat .province-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         #panelFlat .level-badge {
             display: inline-block;
-            background: #3498db;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: #fff;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 15px;
             font-size: 11px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         #panelFlat .summary {
             color: #7f8c8d;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            font-size: 13px;
         }
         #panelFlat .company-title {
             color: #3498db;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 18px 0 12px;
+            margin: 14px 0 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        #panelFlat .company {
+        #panelFlat .company-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+        }
+        #panelFlat .company-item {
             background: #f8f9fa;
             border: 1px solid #e0e6ed;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-        #panelFlat .company:hover {
-            border-color: #3498db;
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
-        }
-        #panelFlat .company-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        #panelFlat .company-city {
-            display: none;
-        }
-        #panelFlat .tags {
+            border-radius: 6px;
+            padding: 0 10px;
+            height: 42px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            align-items: center;
+            font-size: 13px;
+            color: #34495e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: border-color 0.25s;
         }
-        #panelFlat .tag {
-            background: #e8f4f8;
-            color: #3498db;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 10px;
-            border: 1px solid #d0e8f2;
+        #panelFlat .company-item:hover {
+            border-color: #3498db;
         }

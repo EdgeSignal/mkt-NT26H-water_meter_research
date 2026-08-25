@@ -377,71 +377,59 @@
 
         /* 地图面板样式 - 深色科技风格 */
         #panelDark .province-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #00ffff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         #panelDark .level-badge {
             display: inline-block;
             background: linear-gradient(135deg, #00ffff, #00d4ff);
             color: #0a0e1a;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 15px;
             font-size: 11px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
         #panelDark .summary {
             color: #b0c2d4;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            font-size: 13px;
         }
         #panelDark .company-title {
             color: #00ffff;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 18px 0 12px;
+            margin: 14px 0 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        #panelDark .company {
+        #panelDark .company-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+        }
+        #panelDark .company-item {
             background: rgba(5, 20, 37, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-        #panelDark .company:hover {
-            border-color: rgba(0, 255, 255, 0.5);
-            transform: translateX(5px);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        }
-        #panelDark .company-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        #panelDark .company-city {
-            display: none;
-        }
-        #panelDark .tags {
+            border: 1px solid rgba(0, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 0 10px;
+            height: 42px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+            align-items: center;
+            font-size: 13px;
+            color: #dfeaf5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: border-color 0.25s;
         }
-        #panelDark .tag {
-            background: rgba(0, 255, 255, 0.15);
-            color: #00d4ff;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 10px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+        #panelDark .company-item:hover {
+            border-color: rgba(0, 255, 255, 0.45);
         }
 
     </style>
@@ -472,15 +460,39 @@
 
         <!-- Slide 2.5: 中国智能水表产业地图 -->
         <section class="slide">
-            <h2 style="margin-bottom: 30px;">中国智能水表产业地图</h2>
-            <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 25px; height: calc(100% - 100px);">
+            <!-- 顶部标题+统计数字（一行） -->
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; margin-bottom: 8px;">
+                <h2 style="margin: 0; font-size: 26px;">海思Cat.1重点水表客户分布</h2>
+                <div style="display: flex; align-items: center; gap: 20px; padding-top: 4px;">
+                    <span style="font-size: 15px; color: #00ffff; font-weight: 600; white-space: nowrap;">6个集聚区</span>
+                    <span style="color: #555;">｜</span>
+                    <span style="font-size: 15px; color: #00ffff; font-weight: 600; white-space: nowrap;">11个重点省份</span>
+                    <span style="color: #555;">｜</span>
+                    <span style="font-size: 15px; color: #00ffff; font-weight: 600; white-space: nowrap;">52家目标企业</span>
+                </div>
+            </div>
+
+            <!-- 副标题 -->
+            <div style="margin: 6px 0 20px; color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+                聚焦水表整表厂、方案商及智慧水务企业，识别海思Cat.1优先推广区域。
+            </div>
+
+            <!-- 地图+详情面板（72% + 28%） -->
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; height: 620px;">
+                <!-- 地图容器 -->
                 <div style="position: relative; background: rgba(14, 40, 69, 0.3); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 15px; padding: 15px;">
                     <div id="mapDark" style="width: 100%; height: 100%;"></div>
                 </div>
-                <div id="panelDark" style="background: rgba(14, 40, 69, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 15px; padding: 25px; overflow-y: auto; color: #e0e7f1;">
-                    <h3 style="color: #00ffff; margin-bottom: 15px; font-size: 22px;">省份详情</h3>
-                    <p style="color: #808080; font-size: 16px;">点击地图上的重点省份查看详情</p>
+                <!-- 详情面板 -->
+                <div id="panelDark" style="background: rgba(14, 40, 69, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 15px; padding: 26px 24px; overflow: hidden; color: #e0e7f1;">
+                    <h3 style="color: #00ffff; margin-bottom: 10px; font-size: 20px;">省份详情</h3>
+                    <p style="color: #808080; font-size: 14px;">点击地图上的重点省份查看详情</p>
                 </div>
+            </div>
+
+            <!-- 底部说明 -->
+            <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666; text-align: center; width: 90%;">
+                注：本页面产业集聚区为基于CRM客户记录与公开企业资料形成的调研分区，不代表国家或地方政府认定的官方产业集群。
             </div>
         </section>
 
@@ -898,11 +910,19 @@
             currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
             updateProgress();
+            updateNavHint();
         }
 
         function updateProgress() {
             const progress = ((currentSlide + 1) / totalSlides) * 100;
             progressBar.style.width = progress + '%';
+        }
+
+        function updateNavHint() {
+            const navHint = document.querySelector('.nav-hint');
+            if (navHint) {
+                navHint.style.display = currentSlide === 0 ? 'block' : 'none';
+            }
         }
 
         function nextSlide() {
@@ -949,6 +969,7 @@
 
         // 初始化进度条
         updateProgress();
+        updateNavHint();
 
         // 中国地图交互
         const provinceData = {
@@ -1341,6 +1362,8 @@ var yo={},mo={};var xo,_o=function(){function t(t,e,n){var i=this;this._sleepAft
                     map: 'china',
                     roam: false,
                     selectedMode: 'single',
+                    layoutCenter: ['50%', '51%'],
+                    layoutSize: '115%',
                     data: mapData,
                     itemStyle: {
                         areaColor: '#1a2744',
@@ -1391,9 +1414,9 @@ var yo={},mo={};var xo,_o=function(){function t(t,e,n){var i=this;this._sleepAft
                     '<span class="level-badge">' + info.level + '</span>' +
                     '<div class="summary">' + info.summary + '</div>' +
                     '<div class="company-title">代表企业 (' + info.companies.length + ')</div>' +
-                    info.companies.map(c =>
-                        '<div class="company">' + c + '</div>'
-                    ).join('');
+                    '<div class="company-list">' +
+                    info.companies.map(c => '<div class="company-item">' + c + '</div>').join('') +
+                    '</div>';
             }
 
             chart.on('click', (params) => {

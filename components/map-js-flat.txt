@@ -215,6 +215,8 @@ var yo={},mo={};var xo,_o=function(){function t(t,e,n){var i=this;this._sleepAft
                     map: 'china',
                     roam: false,
                     selectedMode: 'single',
+                    layoutCenter: ['50%', '51%'],
+                    layoutSize: '115%',
                     data: mapData,
                     itemStyle: {
                         areaColor: '#ecf0f1',
@@ -265,9 +267,9 @@ var yo={},mo={};var xo,_o=function(){function t(t,e,n){var i=this;this._sleepAft
                     '<span class="level-badge">' + info.level + '</span>' +
                     '<div class="summary">' + info.summary + '</div>' +
                     '<div class="company-title">代表企业 (' + info.companies.length + ')</div>' +
-                    info.companies.map(c =>
-                        '<div class="company">' + c + '</div>'
-                    ).join('');
+                    '<div class="company-list">' +
+                    info.companies.map(c => '<div class="company-item">' + c + '</div>').join('') +
+                    '</div>';
             }
 
             chart.on('click', (params) => {

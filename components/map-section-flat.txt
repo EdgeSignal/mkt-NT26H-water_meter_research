@@ -1,14 +1,34 @@
 
         <!-- Slide 2.5: 中国智能水表产业地图 -->
         <section class="slide">
-            <h2 style="margin-bottom: 30px;">中国智能水表产业地图</h2>
-            <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 25px; height: calc(100% - 100px);">
-                <div style="position: relative; background: #f8f9fa; border: 1px solid #e0e6ed; border-radius: 12px; padding: 15px;">
+            <!-- 页面头部 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 26px;">海思Cat.1重点水表客户分布</h2>
+                <div style="display: flex; gap: 20px; font-size: 15px; color: #7f8c8d;">
+                    <span><strong style="color: #3498db; font-size: 20px;">6</strong>个集聚区</span>
+                    <span><strong style="color: #3498db; font-size: 20px;">11</strong>个重点省份</span>
+                    <span><strong style="color: #3498db; font-size: 20px;">52</strong>家目标企业</span>
+                </div>
+            </div>
+
+            <!-- 副标题 -->
+            <p style="margin: 0 0 16px; font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                聚焦水表整表厂、方案商及智慧水务企业，识别海思Cat.1优先推广区域。
+            </p>
+
+            <!-- 地图与详情面板 -->
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; height: 620px;">
+                <div style="background: #f8f9fa; border: 1px solid #e0e6ed; border-radius: 12px; padding: 15px;">
                     <div id="mapFlat" style="width: 100%; height: 100%;"></div>
                 </div>
-                <div id="panelFlat" style="background: #ffffff; border: 1px solid #e0e6ed; border-radius: 12px; padding: 25px; overflow-y: auto; color: #2c3e50;">
+                <div id="panelFlat" style="background: #ffffff; border: 1px solid #e0e6ed; border-radius: 12px; padding: 20px; overflow: hidden; color: #2c3e50;">
                     <h3 style="color: #3498db; margin-bottom: 15px; font-size: 22px;">省份详情</h3>
                     <p style="color: #95a5a6; font-size: 16px;">点击地图上的重点省份查看详情</p>
                 </div>
+            </div>
+
+            <!-- 底部说明 -->
+            <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #95a5a6; text-align: center; width: 90%;">
+                注：本页面产业集聚区为基于CRM客户记录与公开企业资料形成的调研分区，不代表国家或地方政府认定的官方产业集群。
             </div>
         </section>
