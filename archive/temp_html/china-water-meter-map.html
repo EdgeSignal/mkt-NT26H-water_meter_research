@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>中国智能水表产业重点区域分布</title>
+  <style>
+    :root {
+      --navy: #071529;
+      --navy-2: #0a1e37;
+      --panel: rgba(13, 34, 59, .88);
+      --line: rgba(157, 190, 223, .17);
+      --text: #f6f9fd;
+      --muted: #91a8c1;
+      --blue: #3a6ff7;
+      --cyan: #24b7d9;
+      --green: #43c59e;
+      --orange: #ffb24a;
+      --selected: #ff9e3f;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body {
+      font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(42, 105, 230, .18), transparent 28%),
+        radial-gradient(circle at 82% 82%, rgba(31, 191, 166, .09), transparent 24%),
+        linear-gradient(135deg, var(--navy), #061120 62%, #08182b);
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(121, 162, 205, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(121, 162, 205, .035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .slide {
+      width: 100vw; height: 100vh; min-height: 620px;
+      display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+      padding: clamp(24px, 3.1vw, 60px) clamp(28px, 4.2vw, 82px) clamp(18px, 2vw, 38px);
+      position: relative;
+    }
+    header { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #78d8e8; font-size: 13px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--green)); }
+    h1 { margin: 0; font-size: clamp(30px, 3vw, 56px); line-height: 1.08; letter-spacing: -.035em; font-weight: 760; }
+    .subtitle { margin: 12px 0 0; color: var(--muted); font-size: clamp(13px, 1.05vw, 18px); }
+    .scope-badge { flex: 0 0 auto; margin-top: 4px; padding: 11px 15px; border: 1px solid rgba(78, 164, 229, .25); border-radius: 999px; background: rgba(8, 32, 57, .72); color: #b9d2e8; font-size: 12px; white-space: nowrap; }
+    .scope-badge b { color: #fff; font-size: 14px; margin-right: 8px; }
+    .content { min-height: 0; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(330px, .85fr); gap: clamp(18px, 2.2vw, 42px); padding-top: clamp(16px, 2vh, 30px); }
+    .map-shell, .detail-panel { min-height: 0; border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(145deg, rgba(14, 40, 69, .68), rgba(6, 20, 37, .56)); box-shadow: 0 24px 80px rgba(0, 0, 0, .2); }
+    .map-shell { position: relative; overflow: hidden; }
+    #map { position: absolute; inset: 0 0 54px 0; }
+    .map-topline { position: absolute; left: 22px; top: 18px; z-index: 2; display: flex; align-items: center; gap: 8px; color: #a7bdd3; font-size: 12px; pointer-events: none; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(67, 197, 158, .5); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(67, 197, 158, 0); } 100% { box-shadow: 0 0 0 0 rgba(67, 197, 158, 0); } }
+    .province-nav { position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 3; display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; }
+    .province-btn { appearance: none; border: 1px solid rgba(129, 171, 210, .18); color: #a8bdd2; background: rgba(9, 28, 49, .9); border-radius: 999px; padding: 7px 12px; font: inherit; font-size: 12px; cursor: pointer; transition: .22s ease; }
+    .province-btn:hover, .province-btn:focus-visible { color: #fff; border-color: rgba(88, 180, 232, .62); transform: translateY(-1px); outline: none; }
+    .province-btn.active { color: #fff; border-color: transparent; background: linear-gradient(100deg, var(--blue), #398fd4); box-shadow: 0 8px 24px rgba(58, 111, 247, .28); }
+    .detail-panel { padding: clamp(20px, 2vw, 34px); overflow: auto; position: relative; scrollbar-width: thin; scrollbar-color: rgba(117, 160, 201, .34) transparent; }
+    .detail-panel::after { content: ""; position: absolute; right: 0; top: 0; width: 120px; height: 120px; border-radius: 0 26px 0 100%; background: linear-gradient(135deg, transparent, rgba(53, 126, 221, .09)); pointer-events: none; }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .province-name { margin: 0; font-size: clamp(27px, 2vw, 38px); letter-spacing: -.04em; }
+    .level-pill { border-radius: 999px; padding: 7px 11px; font-size: 11px; font-weight: 700; color: #08182b; background: var(--active-color, var(--blue)); white-space: nowrap; }
+    .panel-summary { margin: 13px 0 16px; color: #b0c2d4; font-size: 13px; line-height: 1.7; }
+    .signal-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 17px; }
+    .signal { padding: 6px 9px; border: 1px solid rgba(122, 169, 207, .16); border-radius: 7px; background: rgba(17, 45, 73, .52); color: #8fb2cf; font-size: 11px; }
+    .company-title { display: flex; align-items: center; justify-content: space-between; margin: 0 0 9px; color: #dce8f4; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .company-title span { color: var(--active-color, var(--blue)); font-size: 18px; letter-spacing: 0; }
+    .companies { display: grid; gap: 9px; }
+    .company-card { padding: 13px 14px; border: 1px solid rgba(130, 169, 204, .13); border-radius: 13px; background: rgba(5, 20, 37, .55); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+    .company-card:hover { transform: translateX(3px); border-color: color-mix(in srgb, var(--active-color) 48%, transparent); background: rgba(13, 38, 63, .78); }
+    .company-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .company-name { margin: 0; font-size: 14px; line-height: 1.35; }
+    .city { color: #7895af; font-size: 11px; white-space: nowrap; }
+    .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .tag { padding: 3px 6px; border-radius: 5px; color: #93cae3; background: rgba(44, 133, 179, .12); font-size: 10px; }
+    .panel-flash { animation: panelFlash .32s ease both; }
+    @keyframes panelFlash { from { opacity: .42; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    footer { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding-top: 13px; color: #657f99; font-size: 10px; line-height: 1.55; }
+    .legend { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .legend b { color: #91a8c1; }
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .dot { width: 8px; height: 8px; border-radius: 2px; }
+    .method { max-width: 710px; }
+    .date { text-align: right; white-space: nowrap; }
+    @media (max-width: 900px) {
+      html, body { overflow: auto; }
+      .slide { height: auto; min-height: 100vh; }
+      header { display: block; }
+      .scope-badge { display: inline-block; margin-top: 14px; }
+      .content { grid-template-columns: 1fr; }
+      .map-shell { min-height: 540px; }
+      .detail-panel { min-height: 420px; }
+      footer { grid-template-columns: 1fr; }
+      .date { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <header>
+      <div>
+        <div class="eyebrow">Market Landscape · China</div>
+        <h1>中国智能水表产业重点区域分布</h1>
+        <p class="subtitle">以企业所在地为视角，识别海思 Cat.1 水表市场的重点触达区域</p>
+      </div>
+      <div class="scope-badge"><b>8</b>个重点省级区域 · <b>19</b>家代表企业</div>
+    </header>
+
+    <section class="content">
+      <div class="map-shell">
+        <div class="map-topline"><span class="pulse"></span>悬浮查看摘要 · 点击区域或标记展开厂家</div>
+        <div id="map" role="img" aria-label="中国智能水表产业重点区域交互地图"></div>
+        <nav class="province-nav" aria-label="重点省份快速切换" id="provinceNav"></nav>
+      </div>
+
+      <aside class="detail-panel" id="detailPanel" aria-live="polite"></aside>
+    </section>
+
+    <footer>
+      <div>
+        <div class="legend">
+          <b>颜色图例</b>
+          <span class="legend-item"><span class="dot" style="background:#3a6ff7"></span>核心集聚区</span>
+          <span class="legend-item"><span class="dot" style="background:#24b7d9"></span>重点集聚区</span>
+          <span class="legend-item"><span class="dot" style="background:#43c59e"></span>龙头企业节点</span>
+          <span class="legend-item"><span class="dot" style="background:#263b52"></span>其他省份</span>
+        </div>
+        <div class="method">口径：CRM出现作为初筛纳入标准，客户访谈与企业公开信息用于补充判断。颜色表达本次材料中的产业集聚或代表性，不代表市场份额、安装量或最终厂家白名单，后续可继续人工筛选。</div>
+      </div>
+      <div class="date">资料周期 2024—2026<br>公开信息核验 2026.08.25</div>
+    </footer>
+  </div>
+
+  <script>
+// 此处应包含完整的ECharts库代码，由于篇幅限制，我会继续写入

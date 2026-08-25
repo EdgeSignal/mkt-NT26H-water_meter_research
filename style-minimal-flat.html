@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海思 Cat.1 智能水表市场机会分析 - 简约扁平风格</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .slides {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 100px;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            color: #333;
+            background: white;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 1;
+        }
+
+        .slide h1 {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .slide h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: #3498db;
+        }
+
+        .slide h3 {
+            font-size: 32px;
+            margin: 25px 0 15px 0;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        .slide p {
+            font-size: 26px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 24px;
+            line-height: 1.8;
+            margin-left: 40px;
+            color: #555;
+        }
+
+        .slide li {
+            margin-bottom: 12px;
+        }
+
+        .title-slide {
+            text-align: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .title-slide h1 {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .title-slide .subtitle {
+            font-size: 36px;
+            margin-bottom: 60px;
+            opacity: 0.95;
+        }
+
+        .title-slide .meta {
+            font-size: 24px;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            font-size: 22px;
+            opacity: 0.95;
+        }
+
+        .stat-box p {
+            font-size: 18px;
+            margin-top: 15px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 18px 20px;
+            font-size: 20px;
+            border-bottom: 1px solid #ecf0f1;
+            color: #555;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 16px;
+            color: #95a5a6;
+            z-index: 100;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 35px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .card ul {
+            margin-left: 25px;
+            font-size: 20px;
+        }
+
+        .card p {
+            font-size: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            margin: 5px;
+            font-weight: 500;
+        }
+
+        .box-info {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 25px 30px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+
+        .box-success {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 25px 30px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+
+        .box-warning {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 25px 30px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+
+        @media print {
+            .slide {
+                page-break-after: always;
+                position: relative;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .progress-bar, .nav-hint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slides">
+        <!-- Slide 1: 封面 -->
+        <section class="slide title-slide active">
+            <h1>海思 Cat.1 智能水表市场机会分析</h1>
+            <p class="subtitle">行业趋势、客户需求与市场切入策略</p>
+            <p class="meta">内部技术分享 | 2026年8月</p>
+        </section>
+
+        <!-- Slide 2: 目录 -->
+        <section class="slide">
+            <h2>目录</h2>
+            <ol style="font-size: 32px; line-height: 2.5; margin-left: 60px;">
+                <li>行业概述</li>
+                <li>市场现状与规模</li>
+                <li>技术发展趋势</li>
+                <li>智能水表技术深度解析</li>
+                <li>主要厂商与竞争格局</li>
+                <li>行业挑战与机遇</li>
+                <li>未来展望</li>
+            </ol>
+        </section>
+
+        <!-- Slide 3: 行业概述 -->
+        <section class="slide">
+            <h2>行业概述</h2>
+            <h3>水表分类</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🔧 机械水表</h3>
+                    <p>传统旋翼式、螺翼式水表，技术成熟但需人工抄表</p>
+                </div>
+                <div class="card">
+                    <h3>💳 智能水表</h3>
+                    <p>IC卡水表、远传水表，实现预付费和远程抄表</p>
+                </div>
+                <div class="card">
+                    <h3>📡 物联网水表</h3>
+                    <p>NB-IoT、LoRa通信技术，实现数据实时传输</p>
+                </div>
+                <div class="card">
+                    <h3>🔬 超声波水表</h3>
+                    <p>无机械损耗，高精度测量，宽量程比</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: 发展历程 -->
+        <section class="slide">
+            <h2>水表发展历程</h2>
+            <table>
+                <tr>
+                    <th>时代</th>
+                    <th>技术特征</th>
+                    <th>代表产品</th>
+                    <th>特点</th>
+                </tr>
+                <tr>
+                    <td><span class="highlight">1.0时代</span></td>
+                    <td>机械计量</td>
+                    <td>旋翼式水表</td>
+                    <td>人工抄表</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">2.0时代</span></td>
+                    <td>预付费</td>
+                    <td>IC卡水表</td>
+                    <td>先付费后用水</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">3.0时代</span></td>
+                    <td>远程抄表</td>
+                    <td>有线/无线远传水表</td>
+                    <td>数据远程采集</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">4.0时代</span></td>
+                    <td>物联网+大数据</td>
+                    <td>NB-IoT智能水表</td>
+                    <td>智慧水务平台</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Slide 5: 市场规模 -->
+        <section class="slide">
+            <h2>市场现状与规模</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">$45亿</div>
+                    <div class="stat-label">2025年全球智能水表市场规模</div>
+                    <p>预计2030年达到$82亿</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">1.2亿只</div>
+                    <div class="stat-label">2025年中国水表年产量</div>
+                    <p>智能水表渗透率约35%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: 市场驱动因素 -->
+        <section class="slide">
+            <h2>市场驱动因素</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🏛️ 政策驱动</h3>
+                    <ul>
+                        <li>国家"一户一表"改造政策</li>
+                        <li>智慧城市、智慧水务建设</li>
+                        <li>阶梯水价政策推广</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>💡 技术驱动</h3>
+                    <ul>
+                        <li>NB-IoT、LoRa技术成熟</li>
+                        <li>传感器成本持续下降</li>
+                        <li>云计算、大数据赋能</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-info" style="margin-top: 40px;">
+                <p style="font-size: 24px; margin: 0;">
+                    <span class="highlight">关键趋势：</span>从"计量工具"向"数据终端+管理平台"转变
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 7: 技术发展趋势 -->
+        <section class="slide">
+            <h2>技术发展趋势</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📡 通信技术</h3>
+                    <ul style="font-size: 20px;">
+                        <li>NB-IoT主流地位</li>
+                        <li>LoRa私有网络</li>
+                        <li>5G RedCap探索</li>
+                        <li>eSIM技术应用</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>⚡ 供电技术</h3>
+                    <ul style="font-size: 20px;">
+                        <li>高容量锂电池</li>
+                        <li>能量收集技术</li>
+                        <li>超低功耗设计</li>
+                        <li>10年+续航目标</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🔬 计量技术</h3>
+                    <ul style="font-size: 20px;">
+                        <li>超声波计量</li>
+                        <li>电磁计量</li>
+                        <li>温度压力补偿</li>
+                        <li>高精度传感器</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🤖 智能化</h3>
+                    <ul style="font-size: 20px;">
+                        <li>边缘计算</li>
+                        <li>异常检测算法</li>
+                        <li>漏损识别</li>
+                        <li>用水行为分析</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: 技术对比 -->
+        <section class="slide">
+            <h2>核心技术对比</h2>
+            <table style="font-size: 20px;">
+                <tr>
+                    <th>技术类型</th>
+                    <th>优势</th>
+                    <th>劣势</th>
+                    <th>应用场景</th>
+                </tr>
+                <tr>
+                    <td><span class="highlight">NB-IoT</span></td>
+                    <td>广覆盖、低功耗</td>
+                    <td>模组成本较高</td>
+                    <td>城市供水、户用水表</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">LoRa</span></td>
+                    <td>私有部署、无月租</td>
+                    <td>需自建基站</td>
+                    <td>园区、工业场景</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">超声波</span></td>
+                    <td>无磨损、高精度</td>
+                    <td>成本高</td>
+                    <td>大口径、高端应用</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">机械式</span></td>
+                    <td>成本低、技术成熟</td>
+                    <td>磨损、需人工抄表</td>
+                    <td>基础计量、低端市场</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Slide 9: 智能水表系统架构 -->
+        <section class="slide">
+            <h2>智能水表系统架构</h2>
+            <div style="margin: 50px auto; max-width: 600px;">
+                <div style="background: #e3f2fd; border: 3px solid #2196f3; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin: 0; color: #1976d2; text-align: center;">感知层</h3>
+                    <p style="font-size: 20px; margin: 10px 0; text-align: center; color: #555;">水表终端 - 传感器、MCU、通信模组</p>
+                </div>
+                <div style="font-size: 48px; text-align: center; color: #2196f3; margin: 10px 0;">↓</div>
+                <div style="background: #e8f5e9; border: 3px solid #4caf50; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin: 0; color: #388e3c; text-align: center;">网络层</h3>
+                    <p style="font-size: 20px; margin: 10px 0; text-align: center; color: #555;">NB-IoT / LoRa / 4G</p>
+                </div>
+                <div style="font-size: 48px; text-align: center; color: #4caf50; margin: 10px 0;">↓</div>
+                <div style="background: #fff3e0; border: 3px solid #ff9800; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin: 0; color: #f57c00; text-align: center;">平台层</h3>
+                    <p style="font-size: 20px; margin: 10px 0; text-align: center; color: #555;">数据管理平台 - 云端服务</p>
+                </div>
+                <div style="font-size: 48px; text-align: center; color: #ff9800; margin: 10px 0;">↓</div>
+                <div style="background: #fce4ec; border: 3px solid #e91e63; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin: 0; color: #c2185b; text-align: center;">应用层</h3>
+                    <p style="font-size: 20px; margin: 10px 0; text-align: center; color: #555;">业务系统、移动APP</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: 技术挑战 -->
+        <section class="slide">
+            <h2>关键技术挑战</h2>
+            <table style="font-size: 20px;">
+                <tr>
+                    <th>挑战</th>
+                    <th>描述</th>
+                    <th>解决方案</th>
+                </tr>
+                <tr>
+                    <td><span class="highlight">低功耗设计</span></td>
+                    <td>电池需支持6-10年使用</td>
+                    <td>超低功耗MCU、定时唤醒</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">信号覆盖</span></td>
+                    <td>地下井、管道井信号弱</td>
+                    <td>外置天线、信号放大</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">数据安全</span></td>
+                    <td>防篡改、防窃水</td>
+                    <td>数据加密、安全芯片</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">环境适应</span></td>
+                    <td>高温、低温、潮湿环境</td>
+                    <td>工业级器件、IP68防护</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">计量精度</span></td>
+                    <td>小流量、大流量精度保证</td>
+                    <td>宽量程设计、温压补偿</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Slide 11: 主要厂商 -->
+        <section class="slide">
+            <h2>主要厂商与竞争格局</h2>
+            <h3>国内主要厂商</h3>
+            <table style="font-size: 20px;">
+                <tr>
+                    <th>厂商</th>
+                    <th>特点</th>
+                    <th>市场定位</th>
+                </tr>
+                <tr>
+                    <td><span class="highlight">宁波水表</span></td>
+                    <td>行业龙头，全产业链布局</td>
+                    <td>高中低端全覆盖</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">三川智慧</span></td>
+                    <td>智慧水务平台优势</td>
+                    <td>中高端智能水表</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">新天科技</span></td>
+                    <td>NB-IoT技术领先</td>
+                    <td>智能水表+燃气表</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">汇中股份</span></td>
+                    <td>超声波水表专家</td>
+                    <td>高端工业用水</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Slide 12: 挑战与机遇 -->
+        <section class="slide">
+            <h2>行业挑战与机遇</h2>
+            <div class="grid-2">
+                <div class="box-warning">
+                    <h3 style="margin-top: 0; color: #e65100;">⚠️ 主要挑战</h3>
+                    <ul style="font-size: 20px;">
+                        <li>价格竞争激烈，利润率承压</li>
+                        <li>技术迭代快，研发投入大</li>
+                        <li>运营成本高（流量费用）</li>
+                        <li>标准不统一，平台不兼容</li>
+                        <li>数据安全与隐私保护</li>
+                    </ul>
+                </div>
+                <div class="box-success">
+                    <h3 style="margin-top: 0; color: #2e7d32;">✅ 发展机遇</h3>
+                    <ul style="font-size: 20px;">
+                        <li>智慧城市建设加速</li>
+                        <li>老旧小区改造需求</li>
+                        <li>存量市场替换需求</li>
+                        <li>海外市场拓展</li>
+                        <li>工业用水精细化管理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: 商业模式创新 -->
+        <section class="slide">
+            <h2>商业模式创新</h2>
+            <table style="font-size: 20px;">
+                <tr>
+                    <th>模式</th>
+                    <th>描述</th>
+                    <th>优势</th>
+                </tr>
+                <tr>
+                    <td><span class="highlight">硬件销售</span></td>
+                    <td>传统一次性销售水表</td>
+                    <td>现金流快、模式成熟</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">平台服务</span></td>
+                    <td>提供SaaS平台，收取服务费</td>
+                    <td>持续收入、客户粘性强</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">租赁模式</span></td>
+                    <td>水司租赁设备，厂商负责运维</td>
+                    <td>降低水司初期投入</td>
+                </tr>
+                <tr>
+                    <td><span class="highlight">数据服务</span></td>
+                    <td>用水数据分析、漏损诊断服务</td>
+                    <td>高附加值、差异化竞争</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Slide 14: 未来展望 -->
+        <section class="slide">
+            <h2>未来展望</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 30px;">
+                <div class="card">
+                    <h3 style="color: #2196f3;">短期（1-2年）</h3>
+                    <ul style="font-size: 19px;">
+                        <li>NB-IoT大规模部署</li>
+                        <li>电池寿命提升至10年+</li>
+                        <li>超声波成本下降</li>
+                        <li>边缘计算能力增强</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color: #4caf50;">中期（3-5年）</h3>
+                    <ul style="font-size: 19px;">
+                        <li>AI漏损识别普及</li>
+                        <li>数字孪生水网</li>
+                        <li>能量收集技术成熟</li>
+                        <li>5G RedCap应用</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color: #ff9800;">长期（5年以上）</h3>
+                    <ul style="font-size: 19px;">
+                        <li>全面物联网化80%+</li>
+                        <li>智慧水务深度整合</li>
+                        <li>碳中和、绿色水务</li>
+                        <li>水质监测一体化</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-info" style="margin-top: 40px;">
+                <p style="font-size: 24px; margin: 0; text-align: center;">
+                    <span class="highlight">核心观点：</span>智能水表不仅是计量工具，更是智慧水务的数据入口
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 15: 总结 -->
+        <section class="slide">
+            <h2>总结</h2>
+            <ul style="font-size: 28px; line-height: 2.2;">
+                <li>水表行业正处于从<span class="highlight">机械化向智能化</span>转型的关键时期</li>
+                <li><span class="highlight">NB-IoT技术</span>成为主流，超声波水表快速渗透</li>
+                <li>市场规模持续增长，但竞争激烈，<span class="highlight">利润率承压</span></li>
+                <li>从"卖产品"到"卖服务"，<span class="highlight">商业模式创新</span>是关键</li>
+                <li>技术、政策、市场三重驱动，<span class="highlight">行业前景广阔</span></li>
+            </ul>
+        </section>
+
+        <!-- Slide 16: Q&A -->
+        <section class="slide title-slide">
+            <h1>感谢聆听</h1>
+            <p class="subtitle">Q & A</p>
+            <p class="meta">海思 Cat.1 智能水表市场机会分析 | 2026年8月</p>
+        </section>
+    </div>
+
+    <div class="progress-bar"></div>
+    <div class="nav-hint">← → 或空格键切换 | F 全屏</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.querySelector('.progress-bar');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // 触摸支持
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide();
+            } else if (touchEndX - touchStartX > 50) {
+                prevSlide();
+            }
+        });
+
+        // 初始化进度条
+        updateProgress();
+
+        // 中国地图交互
+        const provinceData = {
+            '山东': {
+                count: 5,
+                market: '约1000万只/年，占全国1/4',
+                companies: [
+                    '济南瑞泉电子有限公司',
+                    '山东科德电子有限公司',
+                    '泰安轻松表计',
+                    '临沂水表产业基地',
+                    '青岛大型项目（近20万只）'
+                ]
+            },
+            '浙江': {
+                count: 6,
+                market: '龙头企业集聚，年出货数百万只',
+                companies: [
+                    '宁波水表（年产200万只+）',
+                    '三川智慧（年产200万只+）',
+                    '杭州水表厂',
+                    '温州苍南水表',
+                    '浙江晋达',
+                    '浙江三科'
+                ]
+            },
+            '江苏': {
+                count: 3,
+                market: '产业配套完善，技术创新活跃',
+                companies: [
+                    '苏州地区水表企业',
+                    '连云港项目',
+                    '南京相关配套企业'
+                ]
+            },
+            '陕西': {
+                count: 2,
+                market: '西北重要市场，预付费需求强',
+                companies: [
+                    '西安诺文',
+                    '西安地区表厂（10万+项目）'
+                ]
+            },
+            '四川': {
+                count: 2,
+                market: '西部重要基地，辐射西南',
+                companies: [
+                    '成都表厂',
+                    '成都地区配套企业'
+                ]
+            },
+            '重庆': {
+                count: 2,
+                market: '摄像头水表方案领先',
+                companies: [
+                    '重庆信驰（摄像表专家）',
+                    '重庆西美'
+                ]
+            },
+            '内蒙古': {
+                count: 2,
+                market: '带阀表需求高，项目规模大',
+                companies: [
+                    '内蒙古联创',
+                    '赤峰项目（10万只级）'
+                ]
+            },
+            '宁夏': {
+                count: 1,
+                market: '辐射西北市场',
+                companies: [
+                    '宁夏隆基宁光（年产60万只）'
+                ]
+            },
+            '北京': {
+                count: 2,
+                market: '方案商与渠道集中',
+                companies: [
+                    '北京百利深蓝',
+                    '北京德能仪表'
+                ]
+            }
+        };
+
+        // 获取所有重点省份元素
+        const keyProvinces = document.querySelectorAll('.key-province');
+
+        keyProvinces.forEach(province => {
+            const provinceName = province.getAttribute('data-province');
+
+            // 设置重点省份颜色
+            province.style.fill = '#3498db';
+            province.style.opacity = '0.7';
+            province.style.cursor = 'pointer';
+            province.style.transition = 'all 0.3s ease';
+
+            // 鼠标悬浮
+            province.addEventListener('mouseenter', function() {
+                this.style.opacity = '1';
+                this.style.fill = '#2980b9';
+
+                // 显示提示信息
+                const data = provinceData[provinceName];
+                if (data) {
+                    const tooltip = document.createElement('div');
+                    tooltip.id = 'mapTooltip';
+                    tooltip.style.cssText = `
+                        position: absolute;
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        font-size: 14px;
+                        pointer-events: none;
+                        z-index: 1000;
+                    `;
+                    tooltip.innerHTML = `
+                        <strong>${provinceName}</strong><br>
+                        企业数量：${data.count}家
+                    `;
+                    document.body.appendChild(tooltip);
+                }
+            });
+
+            province.addEventListener('mousemove', function(e) {
+                const tooltip = document.getElementById('mapTooltip');
+                if (tooltip) {
+                    tooltip.style.left = (e.pageX + 10) + 'px';
+                    tooltip.style.top = (e.pageY + 10) + 'px';
+                }
+            });
+
+            province.addEventListener('mouseleave', function() {
+                this.style.opacity = '0.7';
+                this.style.fill = '#3498db';
+
+                const tooltip = document.getElementById('mapTooltip');
+                if (tooltip) {
+                    tooltip.remove();
+                }
+            });
+
+            // 点击显示详情
+            province.addEventListener('click', function() {
+                const data = provinceData[provinceName];
+                if (data) {
+                    const detailContent = document.getElementById('detailContent');
+                    detailContent.innerHTML = `
+                        <h3 style="color: #3498db; margin-top: 0;">${provinceName}</h3>
+                        <p style="font-size: 18px; color: #555; margin: 15px 0;">
+                            <strong>市场规模：</strong>${data.market}
+                        </p>
+                        <p style="font-size: 16px; color: #666; margin: 10px 0;">
+                            <strong>企业数量：</strong>${data.count}家
+                        </p>
+                        <h4 style="color: #555; margin-top: 25px; margin-bottom: 15px;">主要企业：</h4>
+                        <ul style="font-size: 16px; line-height: 1.8; color: #666;">
+                            ${data.companies.map(company => `<li>${company}</li>`).join('')}
+                        </ul>
+                    `;
+
+                    // 高亮选中的省份
+                    keyProvinces.forEach(p => {
+                        p.style.stroke = '#999';
+                        p.style.strokeWidth = '1';
+                    });
+                    this.style.stroke = '#e74c3c';
+                    this.style.strokeWidth = '3';
+                }
+            });
+        });
+
+        // ECharts 中国地图初始化
+        function initChinaMapEcharts() {
+            const chartDom = document.getElementById('chinaMapEcharts');
+            if (!chartDom || typeof echarts === 'undefined') {
+                console.warn('ECharts未加载或地图容器不存在');
+                return;
+            }
+
+            const myChart = echarts.init(chartDom);
+
+            // 加载中国地图GeoJSON数据
+            fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
+                .then(response => response.json())
+                .then(geoJson => {
+                    // 注册地图
+                    echarts.registerMap('china', geoJson);
+
+                    // 准备地图数据
+                    const mapData = Object.keys(provinceData).map(name => ({
+                        name: name,
+                        value: provinceData[name].count
+                    }));
+
+                    const option = {
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: function(params) {
+                                const data = provinceData[params.name];
+                                if (data) {
+                                    return '<b style="font-size:14px">' + params.name + '</b><br/>' +
+                                           '<span style="color:#999">企业数量：' + data.count + ' 家</span><br/>' +
+                                           '<span style="color:#3498db">点击查看详情 →</span>';
+                                }
+                                return params.name;
+                            },
+                            backgroundColor: '#fff',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            padding: 12,
+                            textStyle: { color: '#333', fontSize: 13 }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: 6,
+                            text: ['多', '少'],
+                            realtime: false,
+                            calculable: true,
+                            inRange: {
+                                color: ['#d4e9f7', '#a8d5f0', '#5dade2', '#3498db', '#2980b9', '#1f6391']
+                            },
+                            textStyle: {
+                                color: '#555'
+                            },
+                            left: 20,
+                            bottom: 20
+                        },
+                        series: [
+                            {
+                                name: '水表产业分布',
+                                type: 'map',
+                                map: 'china',
+                                roam: false,
+                                itemStyle: {
+                                    areaColor: '#eee',
+                                    borderColor: '#ccc',
+                                    borderWidth: 1
+                                },
+                                label: {
+                                    show: true,
+                                    fontSize: 10,
+                                    color: '#555'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: 12,
+                                        fontWeight: 'bold',
+                                        color: '#fff'
+                                    },
+                                    itemStyle: {
+                                        areaColor: '#e67e22',
+                                        borderColor: '#d35400',
+                                        borderWidth: 2,
+                                        shadowBlur: 10,
+                                        shadowColor: 'rgba(230, 126, 34, 0.5)'
+                                    }
+                                },
+                                select: {
+                                    label: {
+                                        show: true,
+                                        color: '#fff',
+                                        fontWeight: 'bold'
+                                    },
+                                    itemStyle: {
+                                        areaColor: '#e67e22',
+                                        borderColor: '#d35400'
+                                    }
+                                },
+                                data: mapData
+                            }
+                        ]
+                    };
+
+                    myChart.setOption(option);
+
+                    // 点击事件 - 更新右侧详情面板
+                    myChart.on('click', function(params) {
+                        const data = provinceData[params.name];
+                        if (data) {
+                            const detailContent = document.getElementById('provinceDetailContent');
+                            detailContent.innerHTML = `
+                                <div style="border-left: 4px solid #3498db; padding-left: 15px; margin-bottom: 20px;">
+                                    <h3 style="color: #2c3e50; margin: 0 0 10px 0; font-size: 24px;">${params.name}</h3>
+                                    <p style="color: #7f8c8d; margin: 0; font-size: 14px;">重点产业省份</p>
+                                </div>
+
+                                <div style="background: #ecf0f1; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                                    <h4 style="color: #34495e; margin: 0 0 8px 0; font-size: 14px;">市场概况</h4>
+                                    <p style="color: #555; margin: 0; font-size: 15px; line-height: 1.6;">${data.market}</p>
+                                </div>
+
+                                <div>
+                                    <h4 style="color: #34495e; margin: 0 0 12px 0; font-size: 14px;">
+                                        代表企业 <span style="color: #3498db; font-weight: bold;">(${data.count})</span>
+                                    </h4>
+                                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: #555;">
+                                        ${data.companies.map(company => '<li style="margin-bottom: 8px;">' + company + '</li>').join('')}
+                                    </ul>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    // 创建省份快速导航按钮
+                    const provinceNav = document.getElementById('provinceNavBar');
+                    if (provinceNav) {
+                        Object.keys(provinceData).forEach(name => {
+                            const btn = document.createElement('button');
+                            btn.textContent = name;
+                            btn.style.cssText = 'padding: 6px 14px; border: 1px solid #3498db; border-radius: 20px; background: #fff; color: #3498db; cursor: pointer; font-size: 13px; transition: all 0.3s;';
+                            btn.onmouseover = function() {
+                                this.style.background = '#3498db';
+                                this.style.color = '#fff';
+                            };
+                            btn.onmouseout = function() {
+                                this.style.background = '#fff';
+                                this.style.color = '#3498db';
+                            };
+                            btn.onclick = function() {
+                                myChart.dispatchAction({
+                                    type: 'select',
+                                    name: name
+                                });
+                                myChart.dispatchAction({
+                                    type: 'showTip',
+                                    name: name
+                                });
+                            };
+                            provinceNav.appendChild(btn);
+                        });
+                    }
+
+                    // 响应式调整
+                    window.addEventListener('resize', function() {
+                        myChart.resize();
+                    });
+                })
+                .catch(error => {
+                    console.error('加载中国地图数据失败:', error);
+                    chartDom.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999;">地图加载失败，请检查网络连接</div>';
+                });
+        }
+
+        // 页面加载完成后初始化地图
+        if (typeof echarts !== 'undefined') {
+            initChinaMapEcharts();
+        } else {
+            console.warn('ECharts库未加载，地图功能不可用');
+        }
+    </script>
+</body>
+</html>

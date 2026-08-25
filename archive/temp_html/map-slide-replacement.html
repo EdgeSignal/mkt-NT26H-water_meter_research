@@ -1,0 +1,255 @@
+<!-- 这是用于替换的地图页面代码 -->
+<!-- 使用真实的 ECharts 中国地图 -->
+
+<!-- 在 <head> 部分添加 ECharts CDN -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script> -->
+
+<!-- Slide 2.5: 中国水表产业地图 -->
+<section class="slide">
+    <h2>中国水表产业地图</h2>
+    <div style="display: grid; grid-template-columns: 60% 40%; gap: 30px; margin-top: 30px;">
+        <div id="chinaMapChart" style="width: 100%; height: 520px;"></div>
+
+        <div id="provinceDetail" style="background: #f8f9fa; border-radius: 10px; padding: 30px; overflow-y: auto; max-height: 520px;">
+            <h3 style="color: #3498db; margin-top: 0;">省份详情</h3>
+            <div id="detailContent">
+                <p style="color: #999; font-size: 18px;">请点击地图上的重点省份查看详情</p>
+                <div style="margin-top: 30px;">
+                    <h4 style="color: #555;">重点产业省份：</h4>
+                    <ul style="font-size: 16px; line-height: 1.8; color: #666;">
+                        <li><span style="color: #3498db; font-weight: bold;">●</span> 山东：约占全国1/4市场</li>
+                        <li><span style="color: #3498db; font-weight: bold;">●</span> 浙江：龙头企业集聚</li>
+                        <li><span style="color: #3498db; font-weight: bold;">●</span> 江苏：产业配套完善</li>
+                        <li><span style="color: #3498db; font-weight: bold;">●</span> 四川：西部重要基地</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 在 </body> 前的 <script> 部分添加以下代码 -->
+<script>
+// 省份数据
+const provinceMapData = {
+    '山东': {
+        count: 5,
+        market: '约1000万只/年，占全国1/4',
+        companies: [
+            '济南瑞泉电子有限公司',
+            '山东科德电子有限公司',
+            '泰安轻松表计',
+            '临沂水表产业基地',
+            '青岛大型项目（近20万只）'
+        ]
+    },
+    '浙江': {
+        count: 6,
+        market: '龙头企业集聚，年出货数百万只',
+        companies: [
+            '宁波水表（年产200万只+）',
+            '三川智慧（年产200万只+）',
+            '杭州水表厂',
+            '温州苍南水表',
+            '宁光水表',
+            '浙江晋达'
+        ]
+    },
+    '江苏': {
+        count: 3,
+        market: '产业配套完善，技术创新活跃',
+        companies: [
+            '苏州地区水表企业',
+            '连云港项目',
+            '南京相关配套企业'
+        ]
+    },
+    '陕西': {
+        count: 2,
+        market: '西北重要市场，预付费需求强',
+        companies: [
+            '西安诺文',
+            '西安地区表厂（10万+项目）'
+        ]
+    },
+    '四川': {
+        count: 2,
+        market: '西部重要基地，辐射西南',
+        companies: [
+            '成都表厂',
+            '成都地区配套企业'
+        ]
+    },
+    '重庆': {
+        count: 2,
+        market: '摄像头水表方案领先',
+        companies: [
+            '重庆信驰（摄像表专家）',
+            '重庆西美'
+        ]
+    },
+    '内蒙古': {
+        count: 2,
+        market: '带阀表需求高，项目规模大',
+        companies: [
+            '内蒙古联创',
+            '赤峰项目（10万只级）'
+        ]
+    },
+    '宁夏': {
+        count: 1,
+        market: '预付费市场，阶梯水价需求',
+        companies: [
+            '宁夏隆基宁光'
+        ]
+    },
+    '北京': {
+        count: 2,
+        market: '高端市场，智能化要求高',
+        companies: [
+            '北京百利深蓝',
+            '北京德能仪表'
+        ]
+    }
+};
+
+// 初始化 ECharts 地图
+function initChinaMap() {
+    const chartDom = document.getElementById('chinaMapChart');
+    if (!chartDom || typeof echarts === 'undefined') return;
+
+    const myChart = echarts.init(chartDom);
+
+    // 准备地图数据
+    const mapData = Object.keys(provinceMapData).map(name => ({
+        name: name,
+        value: provinceMapData[name].count,
+        itemStyle: {
+            areaColor: '#3498db',
+            borderColor: '#2c3e50'
+        },
+        emphasis: {
+            itemStyle: {
+                areaColor: '#e67e22'
+            }
+        }
+    }));
+
+    const option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                const data = provinceMapData[params.name];
+                if (data) {
+                    return `<b>${params.name}</b><br/>企业数：${data.count}<br/>点击查看详情`;
+                }
+                return params.name;
+            }
+        },
+        visualMap: {
+            min: 0,
+            max: 6,
+            text: ['多', '少'],
+            realtime: false,
+            calculable: true,
+            inRange: {
+                color: ['#e8f4f8', '#3498db', '#2980b9']
+            },
+            textStyle: {
+                color: '#333'
+            }
+        },
+        series: [
+            {
+                name: '水表产业分布',
+                type: 'map',
+                map: 'china',
+                roam: false,
+                label: {
+                    show: true,
+                    fontSize: 10,
+                    color: '#333'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: '#fff'
+                    },
+                    itemStyle: {
+                        areaColor: '#e67e22',
+                        borderColor: '#d35400',
+                        borderWidth: 2
+                    }
+                },
+                select: {
+                    label: {
+                        show: true,
+                        color: '#fff'
+                    },
+                    itemStyle: {
+                        areaColor: '#e67e22'
+                    }
+                },
+                data: mapData
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    // 点击事件
+    myChart.on('click', function(params) {
+        const data = provinceMapData[params.name];
+        if (data) {
+            updateProvinceDetail(params.name, data);
+        }
+    });
+
+    // 响应式
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+}
+
+// 更新省份详情
+function updateProvinceDetail(provinceName, data) {
+    const detailContent = document.getElementById('detailContent');
+    if (!detailContent) return;
+
+    const companiesHtml = data.companies.map(company =>
+        `<li style="margin-bottom: 8px;">${company}</li>`
+    ).join('');
+
+    detailContent.innerHTML = `
+        <div style="border-left: 4px solid #3498db; padding-left: 15px; margin-bottom: 20px;">
+            <h3 style="color: #2c3e50; margin: 0 0 10px 0; font-size: 24px;">${provinceName}</h3>
+            <p style="color: #7f8c8d; margin: 0; font-size: 14px;">重点产业省份</p>
+        </div>
+
+        <div style="background: #ecf0f1; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <h4 style="color: #34495e; margin: 0 0 8px 0; font-size: 14px;">市场概况</h4>
+            <p style="color: #555; margin: 0; font-size: 15px; line-height: 1.6;">${data.market}</p>
+        </div>
+
+        <div>
+            <h4 style="color: #34495e; margin: 0 0 12px 0; font-size: 14px;">
+                代表企业 <span style="color: #3498db; font-weight: bold;">(${data.count})</span>
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: #555;">
+                ${companiesHtml}
+            </ul>
+        </div>
+    `;
+}
+
+// 在slide切换到地图页时初始化
+// 如果使用了slide切换事件，在相应事件中调用 initChinaMap()
+// 否则可以在页面加载完成后调用
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChinaMap);
+} else {
+    initChinaMap();
+}
+</script>

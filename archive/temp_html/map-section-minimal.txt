@@ -1,0 +1,30 @@
+        <!-- Slide 2.5: 中国水表产业地图 -->
+        <section class="slide">
+            <h2>中国水表产业地图</h2>
+            <div style="display: grid; grid-template-columns: 60% 40%; gap: 30px; margin-top: 30px;">
+                <div class="map-shell" style="position: relative;">
+                    <div class="map-topline" style="color: #3498db; font-size: 14px; margin-bottom: 10px; padding: 8px 12px; background: #e8f4f8; border-radius: 5px; text-align: center;">
+                        <span class="pulse" style="display: inline-block; width: 8px; height: 8px; background: #3498db; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite;"></span>
+                        悬浮查看摘要 · 点击区域展开厂家
+                    </div>
+                    <div id="chinaMapEcharts" style="width: 100%; height: 480px;"></div>
+                    <nav class="province-nav" id="provinceNavBar" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; justify-content: center;"></nav>
+                </div>
+
+                <aside class="detail-panel" id="detailPanelContent" style="background: #f8f9fa; border-radius: 10px; padding: 30px; overflow-y: auto; max-height: 580px;">
+                    <h3 style="color: #3498db; margin-top: 0;">省份详情</h3>
+                    <div id="provinceDetailContent">
+                        <p style="color: #999; font-size: 18px;">请点击地图上的重点省份查看详情</p>
+                        <div style="margin-top: 30px;">
+                            <h4 style="color: #555;">重点产业省份：</h4>
+                            <ul style="font-size: 16px; line-height: 1.8; color: #666;">
+                                <li><span style="color: #3498db; font-weight: bold;">●</span> 山东：约占全国1/4市场</li>
+                                <li><span style="color: #3498db; font-weight: bold;">●</span> 浙江：龙头企业集聚</li>
+                                <li><span style="color: #3498db; font-weight: bold;">●</span> 江苏：产业配套完善</li>
+                                <li><span style="color: #3498db; font-weight: bold;">●</span> 四川：西部重要基地</li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>

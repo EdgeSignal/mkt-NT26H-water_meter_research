@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# 大型下载的仓库（已有备份，无需上传）
+map/echarts-master/
+map/ChinaGeoJson-master/
+ChinaGeoJson/
+
+# 压缩包（已解压，无需上传）
+*.zip
