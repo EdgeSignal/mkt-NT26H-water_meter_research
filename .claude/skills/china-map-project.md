@@ -155,9 +155,61 @@ node scripts/generate-flat-map.js
 **Fix**: 检查每个 `<script>` 都有对应 `</script>`
 
 ### 2. Old Map Code Remnants
-**Symptom**: JavaScript 语法错误，控制台报错
-**Cause**: 清理旧地图代码不完整（`} else {` 等残留）
-**Fix**: 完整删除旧地图函数和调用
+**Symptom**: JavaScript 语法错误，控制台报错，翻页失效
+**Cause**: 集成脚本删除旧地图函数时，遗留孤立的代码片段（`} else { console.warn... }`）
+**Pattern**:
+```javascript
+// 导航脚本正常结束
+        });
+    });
+
+    // ECharts 中国地图初始化 - 深色科技风格   ← 孤立注释
+    } else {                                    ← 孤立else块
+        console.warn('ECharts库未加载，地图功能不可用');
+    }
+</script>
+```
+
+**Root Cause**: 旧版 HTML 的地图代码结构为：
+```javascript
+function initChinaMapEcharts() {
+    if (typeof echarts !== 'undefined') {
+        // 地图逻辑...
+    } else {
+        console.warn('ECharts库未加载，地图功能不可用');
+    }
+}
+initChinaMapEcharts();  // ← 集成脚本删除到这里
+// 但 if-else 结构的 else 块有时被复制到函数外，形成孤立片段
+```
+
+**Fix**: 在集成后手动检查并删除：
+```javascript
+// 搜索模式：
+// ECharts 中国地图初始化
+} else {
+    console.warn
+}
+```
+
+**Prevention**: 已在 `scripts/integrate-all.js` 添加孤立片段检测：
+```javascript
+// 2b. 删除残留的旧地图代码片段
+let orphanStart = -1;
+for (let i = 0; i < lines.length; i++) {
+  if (lines[i].includes('// ECharts 中国地图初始化') &&
+      lines[i+1] && lines[i+1].trim() === '} else {' &&
+      lines[i+2] && lines[i+2].includes('console.warn') &&
+      lines[i+3] && lines[i+3].trim() === '}') {
+    orphanStart = i;
+    break;
+  }
+}
+if (orphanStart >= 0) {
+  lines = [...lines.slice(0, orphanStart), ...lines.slice(orphanStart + 4)];
+  console.log(`✓ 已删除残留旧地图片段 (4行)`);
+}
+```
 
 ### 3. ECharts Library Missing
 **Symptom**: 地图容器为空，控制台报 `echarts is not defined`
@@ -180,6 +232,31 @@ node scripts/generate-flat-map.js
 - [ ] 企业卡片无城市名显示
 - [ ] 键盘方向键可翻页（导航未破坏）
 - [ ] 文件大小 ~1.4-1.5 MB（含ECharts库）
+
+### 集成后必跑验证脚本
+
+每次集成后运行此脚本，任一项异常即需修复：
+
+```javascript
+const fs=require('fs');
+['style-dark-tech.html','style-minimal-flat.html'].forEach(f=>{
+  const d=fs.readFileSync(f,'utf8');
+  const openTags=(d.match(/<script/g)||[]).length;
+  const closeTags=(d.match(/<\/script>/g)||[]).length;
+  const orphan=(d.match(/} else {[\s\S]{0,60}console\.warn.*ECharts/)||[]).length;
+  const echartsLib=(d.match(/Apache Software Foundation/g)||[]).length;
+  console.log(f+':');
+  console.log('  script标签平衡: '+(openTags===closeTags?'✓':'✗ '+openTags+'/'+closeTags));
+  console.log('  无孤立片段: '+(orphan===0?'✓':'✗ 发现'+orphan+'处'));
+  console.log('  ECharts库仅1份: '+(echartsLib===1?'✓':'✗ '+echartsLib+'份'));
+  console.log('  导航函数存在: '+(d.includes('function nextSlide')?'✓':'✗'));
+});
+```
+
+**翻页失效三大根因（按频率）：**
+1. `<script>` 标签不平衡（缺 `</script>` 或多余 `<script>`）
+2. 孤立旧地图代码片段（`} else { console.warn }`）造成语法错误
+3. ECharts 库被嵌入两次导致重复声明冲突
 
 ## Update Constraint
 
