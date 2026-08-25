@@ -172,9 +172,7 @@ const html = `<!DOCTYPE html>
       margin-bottom: 5px;
     }
     .company-city {
-      color: #7895af;
-      font-size: 12px;
-      margin-bottom: 8px;
+      display: none;
     }
     .tags {
       display: flex;
