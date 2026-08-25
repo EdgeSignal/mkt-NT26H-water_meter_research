@@ -157,6 +157,75 @@
             color: #808080;
         }
 
+        /* ===== 章节页（section divider）===== */
+        .section-slide {
+            justify-content: center;
+            align-items: flex-start;
+            background:
+                radial-gradient(circle at 78% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 45%),
+                linear-gradient(135deg, #0a0e27 0%, #12172e 55%, #0a0e27 100%);
+        }
+        .section-slide::after {
+            content: '';
+            position: absolute;
+            right: -140px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 620px;
+            height: 620px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 255, 255, 0.06);
+            box-shadow:
+                0 0 0 60px rgba(0, 255, 255, 0.02),
+                inset 0 0 120px rgba(0, 255, 255, 0.04);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .section-number {
+            font-size: 220px;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(0, 255, 255, 0.14);
+            text-shadow: 0 0 40px rgba(0, 255, 255, 0.12);
+            letter-spacing: -4px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 24px rgba(0, 255, 255, 0.45);
+            margin: 10px 0 28px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .section-point {
+            font-size: 28px;
+            font-weight: 400;
+            color: #c8d4e0;
+            line-height: 1.5;
+            max-width: 900px;
+            border-left: 3px solid #00ffff;
+            padding-left: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-progress {
+            position: absolute;
+            bottom: 60px;
+            left: 100px;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #5a6b82;
+            z-index: 1;
+        }
+        .section-progress b {
+            color: #00ffff;
+            font-weight: 700;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -447,14 +516,23 @@
         <section class="slide">
             <h2>目录</h2>
             <ol style="font-size: 32px; line-height: 2.5; margin-left: 60px;">
-                <li>行业概述</li>
-                <li>市场现状与规模</li>
-                <li>技术发展趋势</li>
-                <li>智能水表技术深度解析</li>
-                <li>主要厂商与竞争格局</li>
-                <li>行业挑战与机遇</li>
-                <li>未来展望</li>
+                <li>行业背景与客户故事</li>
+                <li>市场结构与Cat.1机会</li>
+                <li>重点场景与产品适配</li>
+                <li>重点区域与目标客户</li>
+                <li>竞争判断与导入障碍</li>
+                <li>海思Cat.1推广策略</li>
+                <li>实施计划与阶段目标</li>
             </ol>
+        </section>
+
+
+        <!-- 章节页 01 -->
+        <section class="slide section-slide">
+            <div class="section-number">01</div>
+            <h2 class="section-title">行业背景与客户故事</h2>
+            <p class="section-point">从一只水表，看见4000万只存量市场的智能化升级</p>
+            <div class="section-progress"><b>01</b> / 07</div>
         </section>
 
 
@@ -495,6 +573,61 @@
                 注：本页面产业集聚区为基于CRM客户记录与公开企业资料形成的调研分区，不代表国家或地方政府认定的官方产业集群。
             </div>
         </section>
+
+
+        <!-- 章节页 02 -->
+        <section class="slide section-slide">
+            <div class="section-number">02</div>
+            <h2 class="section-title">市场结构与Cat.1机会</h2>
+            <p class="section-point">NB是智能水表基本盘，Cat.1是特定场景的项目化增量</p>
+            <div class="section-progress"><b>02</b> / 07</div>
+        </section>
+
+
+        <!-- 章节页 03 -->
+        <section class="slide section-slide">
+            <div class="section-number">03</div>
+            <h2 class="section-title">重点场景与产品适配</h2>
+            <p class="section-point">带阀、弱网、图像和高时效上报，是Cat.1的主要切入点</p>
+            <div class="section-progress"><b>03</b> / 07</div>
+        </section>
+
+
+        <!-- 章节页 04 -->
+        <section class="slide section-slide">
+            <div class="section-number">04</div>
+            <h2 class="section-title">重点区域与目标客户</h2>
+            <p class="section-point">52家目标企业集中在六大产业集聚区域</p>
+            <div class="section-progress"><b>04</b> / 07</div>
+        </section>
+
+
+        <!-- 章节页 05 -->
+        <section class="slide section-slide">
+            <div class="section-number">05</div>
+            <h2 class="section-title">竞争判断与导入障碍</h2>
+            <p class="section-point">决定模组替换的，不只是价格和PIN兼容</p>
+            <div class="section-progress"><b>05</b> / 07</div>
+        </section>
+
+
+        <!-- 章节页 06 -->
+        <section class="slide section-slide">
+            <div class="section-number">06</div>
+            <h2 class="section-title">海思Cat.1推广策略</h2>
+            <p class="section-point">以方案商突破、区域复制、龙头试挂和运营商协同形成规模</p>
+            <div class="section-progress"><b>06</b> / 07</div>
+        </section>
+
+
+        <!-- 章节页 07 -->
+        <section class="slide section-slide">
+            <div class="section-number">07</div>
+            <h2 class="section-title">实施计划与阶段目标</h2>
+            <p class="section-point">从产品验证到样板项目，再到规模化复制</p>
+            <div class="section-progress"><b>07</b> / 07</div>
+        </section>
+
 
         <!-- Slide 3: 行业概述 -->
         <section class="slide">
