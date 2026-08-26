@@ -1416,22 +1416,71 @@
             <!-- 两栏：客户痛点 vs 需要突出的模组能力 -->
             <div style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 16px; margin-bottom: 12px; align-items: start;">
 
-                <!-- 左：客户痛点 -->
-                <div style="background: rgba(229, 115, 115, 0.08); border: 1px solid rgba(229, 115, 115, 0.3); border-radius: 10px; padding: 12px 16px;">
-                    <h4 style="font-size: 16px; color: #e57373; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 20px;">⚠️</span>
-                        客户痛点
-                    </h4>
-                    <ul style="list-style: none; font-size: 14px; line-height: 1.7; color: #e0e7f1; margin: 0; padding: 0;">
-                        <li style="margin-bottom: 5px;">• 静态电压正常，但模组发射时电压瞬间下降</li>
-                        <li style="margin-bottom: 5px;">• 峰值电流超过电池或电源电路承受能力</li>
-                        <li style="margin-bottom: 5px;">• 模组重启、MCU复位或计量电路受到影响</li>
-                        <li style="margin-bottom: 5px;">• 电池寿命后期出现批量上报异常</li>
-                        <li style="margin: 0;">• 实验室新电池测试不能代表长期现场运行</li>
-                    </ul>
+                <!-- 左列：客户痛点 + 表格 -->
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <!-- 客户痛点 -->
+                    <div style="background: rgba(229, 115, 115, 0.08); border: 1px solid rgba(229, 115, 115, 0.3); border-radius: 10px; padding: 12px 16px;">
+                        <h4 style="font-size: 16px; color: #e57373; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 20px;">⚠️</span>
+                            客户痛点
+                        </h4>
+                        <ul style="list-style: none; font-size: 14px; line-height: 1.7; color: #e0e7f1; margin: 0; padding: 0;">
+                            <li style="margin-bottom: 5px;">• 静态电压正常，但模组发射时电压瞬间下降</li>
+                            <li style="margin-bottom: 5px;">• 峰值电流超过电池或电源电路承受能力</li>
+                            <li style="margin-bottom: 5px;">• 模组重启、MCU复位或计量电路受到影响</li>
+                            <li style="margin-bottom: 5px;">• 电池寿命后期出现批量上报异常</li>
+                            <li style="margin: 0;">• 实验室新电池测试不能代表长期现场运行</li>
+                        </ul>
+                    </div>
+
+                    <!-- 模组对比表格 -->
+                    <div style="display: flex; justify-content: flex-start; align-items: flex-start;">
+                        <table style="max-width: 100%; border-collapse: collapse; font-size: 11px;">
+                            <thead>
+                                <tr style="background: rgba(0, 255, 255, 0.1); border-bottom: 2px solid rgba(0, 255, 255, 0.4);">
+                                    <th style="padding: 4px 8px !important; text-align: left; color: #00ffff !important; font-weight: 600; font-size: 11px !important;">模组型号</th>
+                                    <th style="padding: 4px 8px !important; text-align: left; color: #00ffff !important; font-weight: 600; font-size: 11px !important;">工作电压</th>
+                                    <th style="padding: 4px 8px !important; text-align: left; color: #00ffff !important; font-weight: 600; font-size: 11px !important;">低压电流范围(峰值)</th>
+                                    <th style="padding: 4px 8px !important; text-align: left; color: #00ffff !important; font-weight: 600; font-size: 11px !important;">应用影响</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #e0e7f1;">
+                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <td style="padding: 4px 8px; font-size: 11px;">ExxxxE</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">2.3V-4.5V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">900mA - 2.4A</td>
+                                    <td style="padding: 4px 8px; color: #ff5252; font-size: 11px;">低压下频繁复位</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <td style="padding: 4px 8px; font-size: 11px;">ExxxxZ</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">2.3V-4.5V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">800mA - 900mA</td>
+                                    <td style="padding: 4px 8px; color: #ff5252; font-size: 11px;">低压下频繁复位</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <td style="padding: 4px 8px; font-size: 11px;">MxxxxB</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">2.3V-4.5V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">700mA - 1A</td>
+                                    <td style="padding: 4px 8px; color: #ff5252; font-size: 11px;">低压下频繁复位</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 230, 118, 0.1);">
+                                    <td style="padding: 4px 8px; font-weight: 600; font-size: 11px;">NT26FCNC60</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">2.3V-4.5V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">500mA - 600mA</td>
+                                    <td style="padding: 4px 8px; color: #00e676; font-weight: 600; font-size: 11px;">无影响</td>
+                                </tr>
+                                <tr style="background: rgba(0, 230, 118, 0.1);">
+                                    <td style="padding: 4px 8px; font-weight: 600; font-size: 11px;">NT26H0B1-0V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">2.5V~2.3V</td>
+                                    <td style="padding: 4px 8px; font-size: 11px;">500mA - 600mA</td>
+                                    <td style="padding: 4px 8px; color: #00e676; font-weight: 600; font-size: 11px;">无影响</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- 右：需要突出的模组能力 -->
+                <!-- 右列：需要突出的模组能力 -->
                 <div style="background: rgba(0, 230, 118, 0.08); border: 1px solid rgba(0, 230, 118, 0.3); border-radius: 10px; padding: 12px 16px;">
                     <h4 style="font-size: 16px; color: #00e676; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 20px;">✅</span>
@@ -1458,50 +1507,6 @@
 
             </div>
 
-            <!-- 页面底部：模组对比表格 -->
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                <thead>
-                    <tr style="background: rgba(0, 255, 255, 0.08); border-bottom: 2px solid rgba(0, 255, 255, 0.4);">
-                        <th style="padding: 8px 12px; text-align: left; color: #00ffff; font-weight: 600;">模组型号</th>
-                        <th style="padding: 8px 12px; text-align: left; color: #00ffff; font-weight: 600;">工作电压</th>
-                        <th style="padding: 8px 12px; text-align: left; color: #00ffff; font-weight: 600;">低压电流范围(峰值)</th>
-                        <th style="padding: 8px 12px; text-align: left; color: #00ffff; font-weight: 600;">应用影响</th>
-                    </tr>
-                </thead>
-                <tbody style="color: #e0e7f1;">
-                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                        <td style="padding: 7px 12px;">ExxxxE</td>
-                        <td style="padding: 7px 12px;">2.3V-4.5V</td>
-                        <td style="padding: 7px 12px;">900mA - 2.4A</td>
-                        <td style="padding: 7px 12px; color: #ff5252;">低压下频繁复位</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                        <td style="padding: 7px 12px;">ExxxxZ</td>
-                        <td style="padding: 7px 12px;">2.3V-4.5V</td>
-                        <td style="padding: 7px 12px;">800mA - 900mA</td>
-                        <td style="padding: 7px 12px; color: #ff5252;">低压下频繁复位</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                        <td style="padding: 7px 12px;">MxxxxB</td>
-                        <td style="padding: 7px 12px;">2.3V-4.5V</td>
-                        <td style="padding: 7px 12px;">700mA - 1A</td>
-                        <td style="padding: 7px 12px; color: #ff5252;">低压下频繁复位</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 230, 118, 0.1);">
-                        <td style="padding: 7px 12px; font-weight: 600;">NT26FCNC60</td>
-                        <td style="padding: 7px 12px;">2.3V-4.5V</td>
-                        <td style="padding: 7px 12px;">500mA - 600mA</td>
-                        <td style="padding: 7px 12px; color: #00e676; font-weight: 600;">无影响</td>
-                    </tr>
-                    <tr style="background: rgba(0, 230, 118, 0.1);">
-                        <td style="padding: 7px 12px; font-weight: 600;">NT26H0B1-0V</td>
-                        <td style="padding: 7px 12px;">2.5V~2.3V</td>
-                        <td style="padding: 7px 12px;">500mA - 600mA</td>
-                        <td style="padding: 7px 12px; color: #00e676; font-weight: 600;">无影响</td>
-                    </tr>
-                </tbody>
-            </table>
-
         </section>
 
 
@@ -1511,7 +1516,7 @@
 
             <!-- 场景描述 -->
             <div style="background: rgba(156, 39, 176, 0.08); border: 1px solid rgba(156, 39, 176, 0.3); border-radius: 10px; padding: 12px 18px; margin-bottom: 14px;">
-                <h3 style="font-size: 17px; color: #ba68c8; font-weight: 600; margin-bottom: 8px;">场景四｜存量产品兼容替换</h3>
+                <h3 style="font-size: 17px; color: #ba68c8; font-weight: 600; margin: 0 0 8px 0;">场景四｜存量产品兼容替换</h3>
                 <p style="font-size: 14px; color: #e0e7f1; line-height: 1.5; margin: 0;">
                     表厂已经有成熟PCB、MCU程序、AT指令、平台协议和工厂生产文件，更换模组会触发整套产品重新验证。
                 </p>
@@ -1527,7 +1532,7 @@
                         客户痛点
                     </h4>
                     <ul style="list-style: none; font-size: 14px; line-height: 1.7; color: #e0e7f1; margin: 0; padding: 0;">
-                        <li style="margin-bottom: 5px;">• PIN一致但控制逻辑不同</li>
+                        <li style="margin-bottom: 5px;">• 引脚一致但控制逻辑不同</li>
                         <li style="margin-bottom: 5px;">• WAKEUP、RESET等信号行为不同</li>
                         <li style="margin-bottom: 5px;">• 开机提示和AT返回值不同</li>
                         <li style="margin-bottom: 5px;">• 休眠、关机和网络附着流程不同</li>
