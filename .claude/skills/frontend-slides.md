@@ -173,6 +173,92 @@ The final HTML file should:
 </section>
 ```
 
+## Avoiding Unwanted Whitespace (Layout Gaps)
+
+Multi-column slides frequently develop large blank areas because a short column gets
+stretched to match a tall one, and inner cards inherit that stretched height. Watch for
+these two failure modes and apply the fixes below.
+
+### 1. Grid/flex columns stretched to equal height
+
+**Symptom**: In a multi-column layout (e.g. `grid-template-columns: 30% 30% 40%`), the
+column with less content shows a big empty gap at the bottom because CSS defaults to
+`align-items: stretch`, forcing every column to the tallest column's height.
+
+**Fix**: Add `align-items: start;` to the grid/flex container so each column sizes to its
+own content instead of being stretched.
+
+```css
+/* before — short column stretched, blank space appears */
+display: grid; grid-template-columns: 30% 30% 40%; gap: 20px;
+
+/* after — each column uses its natural height */
+display: grid; grid-template-columns: 30% 30% 40%; gap: 20px; align-items: start;
+```
+
+### 2. Inner cards taller than their text (extra "phantom" row)
+
+**Symptom**: A card that only needs two lines renders as if it has three — an empty row
+sits below the text. Caused by loose vertical padding, default paragraph `margin`, and
+generous `line-height` compounding.
+
+**Fix**: Tighten the card's vertical rhythm:
+- Reduce vertical padding (e.g. `padding: 10px 12px` → `8px 12px`)
+- Set `margin: 0` on the last `<p>` to kill the default bottom margin
+- Trim `line-height` on body text (e.g. `1.5` → `1.4`)
+- Shrink the title-to-content gap (`margin-bottom: 4px` → `3px`)
+
+```html
+<div style="padding: 8px 12px; border-radius: 8px;">
+  <p style="font-size: 14px; font-weight: 600; margin-bottom: 3px;">Title</p>
+  <p style="font-size: 14px; line-height: 1.4; margin: 0;">Content line</p>
+</div>
+```
+
+### 3. Single-line text box that looks two lines tall (default `<p>` margin)
+
+**Symptom**: A conclusion/callout box wraps a single line of text, yet the box renders as
+tall as two lines — there is a blank strip below (and above) the text inside the box. This
+is the most common and easily-missed gap.
+
+**Cause**: The `<p>` inside the box has no `margin` reset, so the browser's default
+paragraph margin (~1em top and bottom) adds empty space *inside* the box, on top of the
+box's own `padding`. Setting the box `padding` alone does NOT fix it — the `<p>` margin sits
+inside that padding.
+
+**Fix**: Add `margin: 0;` to the `<p>` (or any block element) inside the box.
+
+```html
+<!-- before — <p> default margin inflates the box to ~2 lines -->
+<div style="padding: 12px 24px; border-radius: 8px;">
+  <p style="font-size: 17px; line-height: 1.45;">Single line of conclusion text.</p>
+</div>
+
+<!-- after — box hugs the single line -->
+<div style="padding: 12px 24px; border-radius: 8px;">
+  <p style="font-size: 17px; line-height: 1.45; margin: 0;">Single line of conclusion text.</p>
+</div>
+```
+
+**Rule of thumb**: When a slide's content clusters at the top with dead space at the
+bottom, first check `align-items` on the container, then tighten inner-card padding/margin.
+Because `.slide` is already vertically centered (`justify-content: center`), shrinking the
+content block automatically re-centers everything on the page. Apply the same edit to every
+theme variant (e.g. `style-minimal-flat.html` and `style-dark-tech.html`) to keep them in sync.
+
+### Mandatory whitespace check (run after every text-box edit)
+
+Whenever you add or edit ANY text box (conclusion box, callout, card, tag), verify it has no
+extra blank row below the text before finishing:
+
+1. Does every `<p>` / block child inside the box have `margin: 0` (or an explicit, intended
+   margin)? If not, add `margin: 0` — this is the #1 cause of a one-line box looking two lines tall.
+2. Is the box being stretched by a grid/flex parent? If so, ensure the container has
+   `align-items: start`.
+3. Is the box's own `margin-bottom` creating a gap above an absolutely-positioned footnote
+   (which does not occupy flow space)? If the gap is unwanted, remove that `margin-bottom`.
+4. Apply the identical fix to every theme variant so the decks stay in sync.
+
 ## Notes
 
 - Always create self-contained HTML (no external CSS/JS files)
