@@ -253,11 +253,14 @@ extra blank row below the text before finishing:
 
 1. Does every `<p>` / block child inside the box have `margin: 0` (or an explicit, intended
    margin)? If not, add `margin: 0` — this is the #1 cause of a one-line box looking two lines tall.
-2. Is the box being stretched by a grid/flex parent? If so, ensure the container has
+2. Does every `<h3>` inside a text box have `margin-top: 0` overridden? The global `.slide h3`
+   CSS applies `margin: 25px 0 15px 0` by default, creating unwanted space above headings at
+   the top of colored boxes. Use `margin: 0 0 8px 0` or similar to eliminate top spacing.
+3. Is the box being stretched by a grid/flex parent? If so, ensure the container has
    `align-items: start`.
-3. Is the box's own `margin-bottom` creating a gap above an absolutely-positioned footnote
+4. Is the box's own `margin-bottom` creating a gap above an absolutely-positioned footnote
    (which does not occupy flow space)? If the gap is unwanted, remove that `margin-bottom`.
-4. Apply the identical fix to every theme variant so the decks stay in sync.
+5. Apply the identical fix to every theme variant so the decks stay in sync.
 
 ## Notes
 
