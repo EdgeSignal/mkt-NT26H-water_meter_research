@@ -338,6 +338,11 @@
             font-size: 16px;
             color: #e0e7f1;
             line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .wm-growth {
             background: rgba(14, 40, 69, 0.6);
@@ -975,8 +980,8 @@
                     </div>
 
                     <div style="background: rgba(14, 40, 69, 0.4); padding: 12px; border-radius: 6px; border-left: 3px solid #ff5ce0;">
-                        <p style="font-size: 12px; color: #9ca9bd; font-weight: 600; margin-bottom: 6px;">推荐表达：</p>
-                        <p style="font-size: 12px; color: #e0e7f1; line-height: 1.6;">对北方阀控项目而言，通信问题不仅影响抄表，还可能直接影响用户能否及时恢复用水。</p>
+                        <p style="font-size: 12px; color: #9ca9bd; font-weight: 600; margin-bottom: 6px;">应用价值：</p>
+                        <p style="font-size: 12px; color: #e0e7f1; line-height: 1.6;">稳定通信不仅支撑远程抄表，也有助于提升缴费后的开阀响应和供水恢复效率。</p>
                     </div>
                 </div>
 
@@ -1199,8 +1204,8 @@
             </div>
 
             <!-- 页面底部结论 -->
-            <div style="background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); padding: 14px 24px; border-radius: 8px; margin-bottom: 14px;">
-                <p style="font-size: 18px; color: #00ffff; font-weight: 600; text-align: center; line-height: 1.45;">
+            <div style="background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); padding: 14px 24px; border-radius: 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center;">
+                <p style="font-size: 18px; color: #00ffff; font-weight: 600; text-align: center; line-height: 1.45; margin: 0;">
                     Cat.1的机会不在所有智能水表，而在联网时效直接影响用户体验和售后成本的项目。
                 </p>
             </div>
@@ -1502,6 +1507,95 @@
                     </div>
                 </div>
 
+            </div>
+
+        </section>
+
+
+        <!-- Slide 3.4b: NT26H 低功耗表现 -->
+        <section class="slide" style="padding: 34px 56px; justify-content: flex-start;">
+            <h2 style="font-size: 30px; margin-bottom: 12px; color: #e0e7f1; padding-bottom: 12px;">低功耗不是单一待机电流，而是一次<span style="color:#00ffff;">完整业务</span>消耗<span style="color:#2ee6a6;">更少能量</span></h2>
+
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; flex: 1; min-height: 0; align-items: stretch;">
+
+                <!-- 左列 60% -->
+                <div style="display: flex; flex-direction: column; gap: 18px; min-height: 0; justify-content: center;">
+
+                    <!-- 核心观点 + 公式 -->
+                    <div style="background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 10px; padding: 18px 22px;">
+                        <p style="font-size: 20px; color: #b9c4d6; line-height: 1.5; margin: 0 0 10px 0;">模组功耗不能只比休眠电流，需同时考虑：</p>
+                        <p style="font-size: 22px; color: #e0e7f1; font-weight: 600; line-height: 1.55; margin: 0;">休眠功耗 <span style="color:#2ee6a6;">＋</span> 唤醒时间 <span style="color:#2ee6a6;">＋</span> 数据收发电流 <span style="color:#2ee6a6;">＋</span> 在线时长 <span style="color:#2ee6a6;">＋</span> 弱网重试能耗</p>
+                    </div>
+
+                    <!-- 业务流程 -->
+                    <div style="background: rgba(14,40,69,0.4); border: 1px solid rgba(46,230,166,0.25); border-radius: 10px; padding: 18px 16px;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: nowrap;">
+                            <div style="background: rgba(0,255,255,0.14); border:1px solid rgba(0,255,255,0.4); color:#00ffff; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600; display:flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00ffff" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>休眠</div>
+                            <span style="color:#2ee6a6; font-size:18px; font-weight:700;">→</span>
+                            <div style="background: rgba(46,230,166,0.14); border:1px solid rgba(46,230,166,0.4); color:#2ee6a6; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600; display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ee6a6" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>唤醒</div>
+                            <span style="color:#2ee6a6; font-size:18px; font-weight:700;">→</span>
+                            <div style="background: rgba(46,230,166,0.14); border:1px solid rgba(46,230,166,0.4); color:#2ee6a6; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600; display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ee6a6" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>数据发送</div>
+                            <span style="color:#2ee6a6; font-size:18px; font-weight:700;">→</span>
+                            <div style="background: rgba(0,255,255,0.14); border:1px solid rgba(0,255,255,0.4); color:#00ffff; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">RRC释放</div>
+                            <span style="color:#2ee6a6; font-size:18px; font-weight:700;">→</span>
+                            <div style="background: rgba(0,255,255,0.14); border:1px solid rgba(0,255,255,0.4); color:#00ffff; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600; display:flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00ffff" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>再次休眠</div>
+                        </div>
+                        <p style="font-size: 19px; color: #8fa9c4; line-height: 1.45; margin: 12px 0 0 0; text-align:center;">数据发送完成后越快进入休眠，单次业务消耗的总能量越低。</p>
+                    </div>
+
+                    <!-- 核心数据对比卡 -->
+                    <div style="background: linear-gradient(135deg, rgba(46,230,166,0.12) 0%, rgba(0,255,255,0.08) 100%); border: 1px solid rgba(46,230,166,0.5); border-radius: 12px; padding: 22px 26px; box-shadow: 0 0 24px rgba(46,230,166,0.2);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap: 18px;">
+                            <div style="flex:1;">
+                                <p style="font-size: 22px; color:#2ee6a6; font-weight:600; margin:0 0 6px 0;">单次发送并快速释放</p>
+                                <p style="font-size: 20px; color:#8fa9c4; margin:0; line-height:1.4;">NT26H 单次业务耗电量约降低 <span style="color:#2ee6a6; font-weight:700; font-size:26px;">21%</span></p>
+                            </div>
+                            <div style="text-align:center;">
+                                <div style="font-size: 56px; font-weight:800; color:#2ee6a6; line-height:1; text-shadow:0 0 18px rgba(46,230,166,0.55);">12.71<span style="font-size:26px;">μAh</span></div>
+                                <div style="font-size:19px; color:#7f8ca0; margin-top:5px;">NT26H</div>
+                            </div>
+                            <div style="width:1px; height:60px; background:rgba(255,255,255,0.15);"></div>
+                            <div style="text-align:center;">
+                                <div style="font-size: 42px; font-weight:700; color:#b9c4d6; line-height:1;">16.15<span style="font-size:22px;">μAh</span></div>
+                                <div style="font-size:19px; color:#7f8ca0; margin-top:5px;">NT26K</div>
+                            </div>
+                        </div>
+                        <p style="font-size:19px; color:#6f7d92; margin:14px 0 0 0; line-height:1.4;">测试条件：电信LTE现网，RSRP约-84dBm，SNR约21dB，DRX周期1.28s，发送100字节数据。</p>
+                    </div>
+
+                </div>
+
+                <!-- 右列 40% -->
+                <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0; justify-content: center;">
+
+                    <p style="font-size:20px; color:#00ffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffff" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>水表场景适配</p>
+
+                    <div style="background: rgba(46,230,166,0.08); border-left:4px solid #2ee6a6; border-radius:8px; padding:16px 18px;">
+                        <p style="font-size:20px; color:#2ee6a6; font-weight:600; margin:0 0 6px 0;">高频交互与状态上报</p>
+                        <p style="font-size:19px; color:#b9c4d6; margin:0; line-height:1.5;">适合快速休眠，通过降低单次业务能耗减少高频通信的累计功耗。</p>
+                    </div>
+
+                    <div style="background: rgba(0,255,255,0.08); border-left:4px solid #00ffff; border-radius:8px; padding:16px 18px;">
+                        <p style="font-size:20px; color:#00ffff; font-weight:600; margin:0 0 6px 0;">带阀和及时响应项目</p>
+                        <p style="font-size:19px; color:#b9c4d6; margin:0; line-height:1.5;">更低发送阶段电流减轻电池和电源电路压力，支持数据交互及阀控业务。</p>
+                    </div>
+
+                    <div style="background: rgba(0,212,255,0.06); border-left:4px solid #00d4ff; border-radius:8px; padding:16px 18px;">
+                        <p style="font-size:20px; color:#00d4ff; font-weight:600; margin:0 0 6px 0;">低频周期上报项目</p>
+                        <p style="font-size:19px; color:#b9c4d6; margin:0; line-height:1.5;">需结合整机断电策略、上报间隔和实际网络计算，不能直接套用DRX结论。</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 底部结论 -->
+            <div style="background: rgba(0,255,255,0.07); border:1px solid rgba(0,255,255,0.35); border-radius:8px; padding:10px 20px; margin-top:12px;">
+                <p style="font-size:19px; color:#00ffff; font-weight:600; text-align:center; line-height:1.4; margin:0;">海思NT26H的低功耗价值主要体现在数据收发阶段；交互越频繁，降低单次业务能耗的价值越明显。</p>
+            </div>
+
+            <!-- 页面脚注 -->
+            <div style="font-size:11px; color:#5f6b7d; text-align:center; width:100%; margin-top:8px; line-height:1.35;">
+                数据来源：《Lierda NT26H &amp; NT26K现网功耗对比报告_V2.0》及《NT26H &amp; NT26K功耗对比》；测试结果受信号质量、运营商配置、业务流程、固件版本和休眠参数影响，最终以客户整机实测为准。快速释放功能默认关闭，使用前需评估运营商网络策略。
             </div>
 
         </section>
