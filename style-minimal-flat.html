@@ -1574,42 +1574,119 @@
         </section>
 
 
-        <!-- Slide 10: 技术挑战 -->
-        <section class="slide">
-            <h2>关键技术挑战</h2>
-            <table style="font-size: 20px;">
-                <tr>
-                    <th>挑战</th>
-                    <th>描述</th>
-                    <th>解决方案</th>
-                </tr>
-                <tr>
-                    <td><span class="highlight">低功耗设计</span></td>
-                    <td>电池需支持6-10年使用</td>
-                    <td>超低功耗MCU、定时唤醒</td>
-                </tr>
-                <tr>
-                    <td><span class="highlight">信号覆盖</span></td>
-                    <td>地下井、管道井信号弱</td>
-                    <td>外置天线、信号放大</td>
-                </tr>
-                <tr>
-                    <td><span class="highlight">数据安全</span></td>
-                    <td>防篡改、防窃水</td>
-                    <td>数据加密、安全芯片</td>
-                </tr>
-                <tr>
-                    <td><span class="highlight">环境适应</span></td>
-                    <td>高温、低温、潮湿环境</td>
-                    <td>工业级器件、IP68防护</td>
-                </tr>
-                <tr>
-                    <td><span class="highlight">计量精度</span></td>
-                    <td>小流量、大流量精度保证</td>
-                    <td>宽量程设计、温压补偿</td>
-                </tr>
+        <!-- Slide 4.5: 重点客户推进阶段与推广目标 -->
+        <section class="slide" style="padding: 40px 70px; justify-content: flex-start;">
+            <h2 style="font-size:30px; margin-bottom:6px; color:#2c3e50;">当前客户进度：从技术基础走向项目导入</h2>
+            <p style="font-size:16px; color:#7f8c9a; margin:0 0 18px 0;">重点客户已形成从产品适配、测试认证到小批出货的梯次推进，项目导入路径逐步清晰。</p>
+
+            <!-- 推进路径箭头 -->
+            <div style="display:flex; align-items:stretch; gap:0; margin-bottom:20px;">
+                <div style="flex:1; background:#f3ebf7; border:1px solid #dcc3e8; border-radius:8px 0 0 8px; padding:12px 8px; text-align:center; font-size:16px; color:#2c3e50;">产品适配</div>
+                <div style="display:flex; align-items:center; color:#aab4c0; font-size:20px; padding:0 6px;">→</div>
+                <div style="flex:1; background:#eaf4fb; border:1px solid #bcdff5; padding:12px 8px; text-align:center; font-size:16px; color:#2c3e50;">样品测试</div>
+                <div style="display:flex; align-items:center; color:#aab4c0; font-size:20px; padding:0 6px;">→</div>
+                <div style="flex:1; background:#eaf4fb; border:1px solid #bcdff5; padding:12px 8px; text-align:center; font-size:16px; color:#2c3e50;">认证验证</div>
+                <div style="display:flex; align-items:center; color:#aab4c0; font-size:20px; padding:0 6px;">→</div>
+                <div style="flex:1; background:#e8f6ee; border:1px solid #bfe6cf; padding:12px 8px; text-align:center; font-size:16px; color:#2c3e50;">小批导入</div>
+                <div style="display:flex; align-items:center; color:#1e9e6a; font-size:20px; padding:0 6px;">→</div>
+                <div style="flex:1; background:#d5f0e0; border:1px solid #1e9e6a; border-radius:0 8px 8px 0; padding:12px 8px; text-align:center; font-size:16px; font-weight:700; color:#1e9e6a;">稳定出货</div>
+            </div>
+
+            <table style="width:100%; border-collapse:collapse; font-size:18px; margin:0;">
+                <thead>
+                    <tr style="background:#eaf2f8; border-bottom:2px solid #3498db;">
+                        <th style="padding:14px 20px !important; text-align:left; color:#2471a3 !important; font-weight:600; font-size:18px !important; width:22%;">推进阶段</th>
+                        <th style="padding:14px 20px !important; text-align:left; color:#2471a3 !important; font-weight:600; font-size:18px !important; width:46%;">当前客户及进展</th>
+                        <th style="padding:14px 20px !important; text-align:left; color:#2471a3 !important; font-weight:600; font-size:18px !important;">下一阶段目标</th>
+                    </tr>
+                </thead>
+                <tbody style="color:#2c3e50;">
+                    <tr style="background:#e8f6ee; border-bottom:1px solid #e0e6ed; border-left:3px solid #1e9e6a;">
+                        <td style="padding:14px 20px; font-size:18px; font-weight:700; color:#1e9e6a;">稳定出货与小批</td>
+                        <td style="padding:14px 20px; font-size:18px;">合诚：正常出货；科德：测试完成，准备小批</td>
+                        <td style="padding:14px 20px; font-size:18px; color:#3d4a5c;">稳定交付，推动项目复制与规模导入</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e0e6ed;">
+                        <td style="padding:14px 20px; font-size:18px; font-weight:700; color:#1c7f99;">测试与认证</td>
+                        <td style="padding:14px 20px; font-size:18px;">威铭：测试完成，鸿蒙认证中；瑞泉：已送样，测试中</td>
+                        <td style="padding:14px 20px; font-size:18px; color:#3d4a5c;">完成验证闭环，进入项目导入</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e0e6ed;">
+                        <td style="padding:14px 20px; font-size:18px; font-weight:700; color:#8e44ad;">协议与产品适配</td>
+                        <td style="padding:14px 20px; font-size:18px;">轻松：推进 MQTT、TCP/UDP 及多协议兼容</td>
+                        <td style="padding:14px 20px; font-size:18px; color:#3d4a5c;">完成适配确认，启动样品测试</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:14px 20px; font-size:18px; font-weight:700; color:#e67e22;">重点商务突破</td>
+                        <td style="padding:14px 20px; font-size:18px;">聚创：持续沟通，评估产品与项目切入条件</td>
+                        <td style="padding:14px 20px; font-size:18px; color:#3d4a5c;">突出宽压、兼容及服务价值，争取测试机会</td>
+                    </tr>
+                </tbody>
             </table>
+
+            <div style="margin-top:20px; background:linear-gradient(90deg, #e8f6ee, #eaf4fb); border:1px solid #bfe6cf; border-radius:8px; padding:14px 20px;">
+                <p style="font-size:17px; font-weight:600; color:#2c3e50; margin:0;">客户推进已从单点技术验证进入小批与出货阶段，下一步聚焦<span style="color:#1e9e6a;">认证闭环、项目复制与规模导入</span>。</p>
+            </div>
         </section>
+
+
+        <!-- Slide 4.6: 海思Cat.1推广策略 -->
+        <section class="slide" style="padding: 40px 60px; justify-content: flex-start;">
+            <div style="margin-bottom:6px;"><span style="font-size:16px; color:#2471a3; font-weight:600; letter-spacing:1px;">海思 Cat.1 推广策略</span></div>
+            <h2 style="font-size:30px; margin:0 0 6px 0; color:#2c3e50;">降低替换风险，证明项目价值</h2>
+            <p style="font-size:16px; color:#7f8c9a; margin:0 0 20px 0;">从兼容切入到商务配套，系统性降低客户切换和长期运营风险。</p>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:16px; align-items:stretch;">
+                <div style="background:#f2faf5; border:1px solid #bfe6cf; border-top:3px solid #1e9e6a; border-radius:8px; padding:16px 16px;">
+                    <div style="font-size:15px; color:#1e9e6a; font-weight:700; margin-bottom:4px;">01</div>
+                    <div style="font-size:19px; color:#2c3e50; font-weight:700; margin-bottom:10px;">兼容切入</div>
+                    <div style="font-size:15px; color:#7f8c9a; margin-bottom:8px;">面向已有海思指令基础客户：</div>
+                    <ul style="list-style:none; padding:0; margin:0; font-size:16px; color:#3d4a5c; line-height:1.7;">
+                        <li>· 提供 PIN 及 AT 差异清单</li>
+                        <li>· 提供兼容固件</li>
+                        <li>· 优先争取小批试挂</li>
+                    </ul>
+                </div>
+                <div style="background:#eef8fc; border:1px solid #b3ddef; border-top:3px solid #2ca8c7; border-radius:8px; padding:16px 16px;">
+                    <div style="font-size:15px; color:#1c7f99; font-weight:700; margin-bottom:4px;">02</div>
+                    <div style="font-size:19px; color:#2c3e50; font-weight:700; margin-bottom:10px;">场景验证</div>
+                    <div style="font-size:15px; color:#7f8c9a; margin-bottom:8px;">面向项目型客户：</div>
+                    <ul style="list-style:none; padding:0; margin:0; font-size:16px; color:#3d4a5c; line-height:1.7;">
+                        <li>· 选择 1～2 款标准产品</li>
+                        <li>· 开展驻网、弱网、宽压及功耗 A/B 测试</li>
+                        <li>· 用实测数据证明售后价值</li>
+                        <li>· 不一次性迁移全部产品</li>
+                    </ul>
+                </div>
+                <div style="background:#f7f1fa; border:1px solid #dcc3e8; border-top:3px solid #8e44ad; border-radius:8px; padding:16px 16px;">
+                    <div style="font-size:15px; color:#8e44ad; font-weight:700; margin-bottom:4px;">03</div>
+                    <div style="font-size:19px; color:#2c3e50; font-weight:700; margin-bottom:10px;">区域样板</div>
+                    <div style="font-size:15px; color:#7f8c9a; margin-bottom:8px;">围绕山东、浙江及北方阀控市场：</div>
+                    <ul style="list-style:none; padding:0; margin:0; font-size:16px; color:#3d4a5c; line-height:1.7;">
+                        <li>· 选择明确项目</li>
+                        <li>· 建立运营商和网络测试档案</li>
+                        <li>· 形成可复用客户案例</li>
+                        <li>· 从单点客户复制到区域客户群</li>
+                    </ul>
+                </div>
+                <div style="background:#fdf5e9; border:1px solid #f2d3a8; border-top:3px solid #e67e22; border-radius:8px; padding:16px 16px;">
+                    <div style="font-size:15px; color:#d35400; font-weight:700; margin-bottom:4px;">04</div>
+                    <div style="font-size:19px; color:#2c3e50; font-weight:700; margin-bottom:10px;">商务配套</div>
+                    <div style="font-size:15px; color:#7f8c9a; margin-bottom:8px;">保障项目落地与交付：</div>
+                    <ul style="list-style:none; padding:0; margin:0; font-size:16px; color:#3d4a5c; line-height:1.7;">
+                        <li>· 推进运营商入库</li>
+                        <li>· 明确模组、卡及资费组合</li>
+                        <li>· 提供版本锁定与交付保障</li>
+                        <li>· 建立项目报价边界</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top:22px; background:linear-gradient(90deg, #eaf4fb, #fdf5e9); border:1px solid #bcdff5; border-radius:8px; padding:14px 20px;">
+                <p style="font-size:18px; font-weight:600; color:#2c3e50; margin:0;">推广逻辑从"卖一颗模组"转向<span style="color:#2471a3;">"降低客户切换和长期运营风险"</span>。</p>
+            </div>
+        </section>
+
 
         <!-- Slide 16: Q&A -->
         <section class="slide title-slide">
