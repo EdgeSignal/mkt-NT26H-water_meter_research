@@ -1387,13 +1387,107 @@
         </section>
 
 
+        <!-- Slide 3.4c: 场景四 - 高频交互与状态上报 -->
+        <section class="slide" style="justify-content: center;">
+            <h2 style="font-size: 30px; margin-bottom: 14px;">高频交互下的低功耗：关键是降低<span style="color:#00b894;">单次业务能耗</span></h2>
+
+            <!-- 场景描述 -->
+            <div style="background: #e6f7f1; border: 1px solid #00b894; border-radius: 10px; padding: 12px 18px; margin-bottom: 14px;">
+                <h3 style="font-size: 19px; color: #00997a; font-weight: 600; margin: 0 0 8px 0;">场景四｜高频交互与状态上报</h3>
+                <p style="font-size: 18px; color: #555; line-height: 1.5; margin: 0;">
+                    部分带阀水表、告警上报及远程状态交互项目，需要更频繁地唤醒模组并完成数据收发。在电池供电条件下，单次通信能耗会随着交互次数不断累积。
+                </p>
+            </div>
+
+            <!-- 两栏：客户关注点 vs NT26-H模组能力 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; align-items: stretch;">
+
+                <!-- 客户关注点 -->
+                <div style="background: #ffebee; border: 1px solid #e57373; border-radius: 10px; padding: 14px 18px;">
+                    <h4 style="font-size: 19px; color: #c62828; font-weight: 600; margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 20px;">⚠️</span>客户关注点
+                    </h4>
+                    <ul style="list-style: none; font-size: 18px; line-height: 1.6; color: #555; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 6px;">• 频繁唤醒和数据发送带来累计功耗</li>
+                        <li style="margin-bottom: 6px;">• 数据发送完成后在线时间过长</li>
+                        <li style="margin-bottom: 6px;">• 弱网重试进一步增加单次业务能耗</li>
+                        <li style="margin-bottom: 6px;">• 发射电流增加电池及电源电路压力</li>
+                        <li style="margin: 0;">• 只比较休眠电流，不能反映完整业务功耗</li>
+                    </ul>
+                </div>
+
+                <!-- NT26-H模组能力 -->
+                <div style="background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 10px; padding: 14px 18px;">
+                    <h4 style="font-size: 19px; color: #2e7d32; font-weight: 600; margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 20px;">✅</span>NT26-H模组能力
+                    </h4>
+                    <ul style="list-style: none; font-size: 18px; line-height: 1.6; color: #555; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 6px;">• 支持数据发送后快速释放RRC</li>
+                        <li style="margin-bottom: 6px;">• 发送完成后更快进入休眠状态</li>
+                        <li style="margin-bottom: 6px;">• 发送阶段平均电流更低</li>
+                        <li style="margin-bottom: 6px;">• 降低单次完整业务耗电量</li>
+                        <li style="margin: 0;">• 交互越频繁，累计节能价值越明显</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 核心数据 + 业务流程 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; align-items: stretch;">
+
+                <!-- 核心数据卡 -->
+                <div style="background: #e6f7f1; border: 1px solid #00b894; border-radius: 10px; padding: 14px 18px;">
+                    <p style="font-size: 18px; color:#00997a; font-weight:600; margin:0 0 8px 0;">核心数据｜单次发送并快速释放</p>
+                    <div style="display:flex; align-items:center; justify-content:space-between; gap: 14px;">
+                        <div style="text-align:center;">
+                            <div style="font-size: 40px; font-weight:800; color:#00b894; line-height:1;">12.71<span style="font-size:20px;">μAh</span></div>
+                            <div style="font-size:18px; color:#888; margin-top:4px;">NT26H</div>
+                        </div>
+                        <div style="width:1px; height:44px; background:#cfd8dc;"></div>
+                        <div style="text-align:center;">
+                            <div style="font-size: 30px; font-weight:700; color:#607d8b; line-height:1;">16.15<span style="font-size:17px;">μAh</span></div>
+                            <div style="font-size:18px; color:#888; margin-top:4px;">NT26K</div>
+                        </div>
+                        <div style="flex:1; text-align:right;">
+                            <div style="font-size:18px; color:#666; line-height:1.3;">单次业务耗电量<br>约降低</div>
+                            <div style="font-size:32px; font-weight:800; color:#00b894; line-height:1.1;">21%</div>
+                        </div>
+                    </div>
+                    <p style="font-size:18px; color:#666; margin:10px 0 0 0; line-height:1.35; border-top:1px solid #d6e6e0; padding-top:8px;">辅助数据｜发送阶段平均电流：NT26H <b style="color:#00b894;">19.36mA</b> ／ NT26K <b style="color:#607d8b;">30.15mA</b></p>
+                </div>
+
+                <!-- 业务流程 -->
+                <div style="background: #f0f7fc; border: 1px solid #3498db; border-radius: 10px; padding: 14px 16px; display:flex; flex-direction:column; justify-content:center;">
+                    <p style="font-size:18px; color:#2471a3; font-weight:600; margin:0 0 10px 0;">业务流程</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                        <div style="background: #eaf4fb; border:1px solid #3498db; color:#2471a3; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">休眠</div>
+                        <span style="color:#00b894; font-size:18px; font-weight:700;">→</span>
+                        <div style="background: #e6f7f1; border:1px solid #00b894; color:#00997a; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">唤醒</div>
+                        <span style="color:#00b894; font-size:18px; font-weight:700;">→</span>
+                        <div style="background: #e6f7f1; border:1px solid #00b894; color:#00997a; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">状态上报/数据交互</div>
+                        <span style="color:#00b894; font-size:18px; font-weight:700;">→</span>
+                        <div style="background: #eaf4fb; border:1px solid #3498db; color:#2471a3; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">RRC释放</div>
+                        <span style="color:#00b894; font-size:18px; font-weight:700;">→</span>
+                        <div style="background: #eaf4fb; border:1px solid #3498db; color:#2471a3; padding: 7px 10px; border-radius: 6px; font-size: 18px; font-weight: 600;">再次休眠</div>
+                    </div>
+                    <p style="font-size: 18px; color: #666; line-height: 1.4; margin: 12px 0 0 0; text-align:center;">数据发送完成后越快进入休眠，单次业务消耗的总能量越低。</p>
+                </div>
+            </div>
+
+            <!-- 页面脚注 -->
+            <div style="font-size:12px; color:#999; text-align:center; width:100%; line-height:1.35;">
+                数据来源：《Lierda NT26H &amp; NT26K现网功耗对比报告_V2.0》及《NT26H &amp; NT26K功耗对比》；测试结果受信号质量、运营商配置、业务流程、固件版本和休眠参数影响，最终以客户整机实测为准。快速释放功能默认关闭，使用前需评估运营商网络策略。
+            </div>
+
+        </section>
+
+
         <!-- Slide 3.5: 场景四 - 存量产品兼容替换 -->
         <section class="slide">
             <h2 style="font-size: 32px; margin-bottom: 14px;">兼容不是"能够焊上去"，而是客户原有产品不需要重新做一遍</h2>
 
             <!-- 场景描述 -->
             <div style="background: #f3e5f5; border: 1px solid #9c27b0; border-radius: 10px; padding: 12px 18px; margin-bottom: 14px;">
-                <h3 style="font-size: 17px; color: #6a1b9a; font-weight: 600; margin: 0 0 8px 0;">场景四｜存量产品兼容替换</h3>
+                <h3 style="font-size: 17px; color: #6a1b9a; font-weight: 600; margin: 0 0 8px 0;">场景五｜存量产品兼容替换</h3>
                 <p style="font-size: 14px; color: #555; line-height: 1.5; margin: 0;">
                     表厂已经有成熟PCB、MCU程序、AT指令、平台协议和工厂生产文件，更换模组会触发整套产品重新验证。
                 </p>
